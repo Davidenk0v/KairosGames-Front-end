@@ -57,14 +57,28 @@
   
   <div class="container-fluid">
     <div class="row">
-        <div class="col-2 bg-light" style="height: auto; text-align: center;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-        </div>
-        <div class="col bg-light">
+      <div class="col-2 bg-light position-fixed top-0 start-0" style="height: auto; text-align: center; margin-top: 100px;"><!-- Contenedor izquierda superpuesto -->
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+      </div>
+
+      <div class="col bg-light"></div><!-- Contenedor central -->
+
+      <div class="col-2 bg-light position-fixed top-0 end-0" style="height: auto; text-align: center; margin-top: 100px;"><!-- Contenedor derecha superpuesto -->
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 bg-light"></div><!-- Contenedor izquierda -->
+        <div class="col bg-light"><!-- Contenedor central superpuesto -->
           <div class="row bg-light" style="justify-content: center;">
             <template v-for="game in GAMES" :key="game.id">
               <div class="col-md-4">
@@ -75,13 +89,7 @@
             </template>
           </div>
         </div>
-        <div class="col-2 bg-light" style="right: 0; z-index: 0; height: auto; text-align: center;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-        </div>
+        <div class="col-2 bg-light"></div><!-- Contenedor derecha -->
     </div>
 </div>
 <footer class="bg-light fixed-bottom" id="footer" style="display: none;">
