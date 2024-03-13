@@ -1,5 +1,6 @@
 <script setup>
 import GameCard from '@/components/GameCard.vue'
+import PaginationGame from '@/components/PaginationGame.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 
@@ -137,23 +138,7 @@ onMounted(() => {
       </div>
     </div>
   </div>
-
-  <nav aria-label="...">
-    <ul class="pagination">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item active">
-        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
-
+  <PaginationGame />
   <footer class="bg-light fixed-bottom" id="footer" style="display: none">
     <div class="container-fluid">
       <div class="row">
