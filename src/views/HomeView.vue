@@ -1,29 +1,31 @@
 <script setup>
-import GameCard from '@/components/GameCard.vue'
-import axios from 'axios'
-import { ref, computed } from 'vue'
+  import GameCard from '@/components/GameCard.vue'
+  import axios from 'axios'
+  import { ref, computed } from 'vue'
 
-const GAMES = ref([])
+  const GAMES = ref([])
 
-window.addEventListener('scroll', function () {
-  var footer = document.getElementById('footer')
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    footer.style.display = 'block'
-  } else {
-    footer.style.display = 'none'
+  window.addEventListener('scroll', function() {
+    var footer = document.getElementById('footer');
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        footer.style.display = 'block';
+    } else {
+        footer.style.display = 'none';
+    }
+  });
+
+  const getGames = async () => {
+    axios.get('http://localhost:8080/api/games').then((response) => {
+      GAMES.value = response.data
+    })
   }
-})
 
-const getGames = async () => {
-  axios.get('http://localhost:8080/api/games').then((response) => {
-    GAMES.value = response.data
-  })
-}
+  getGames();
 
-getGames()
 </script>
 
 <template>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -67,40 +69,31 @@ getGames()
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-2 bg-light d-none d-lg-block position-fixed" style="height: 100vh">
-        sit amet, consectetur adipiscing elit. Cras quam felis, dignissim vitae mauris quis, porta
-        sagittis urna. Cras lectus eros, ullamcorper at faucibus ac, tincidunt vel turpis. Proin
-        tempor diam ut ligula molestie convallis. Fusce luctus dolor a nulla maximus sodales. Etiam
-        fringilla dui in posuere pellentesque. Fusce fringilla placerat euismod. Nulla auctor eros
-        vel ligula gravida, eget molestie ipsum ultricies. Nullam molestie sollicitudin faucibus.
-        Proin id sollicitudin dui, et porttitor risus. Donec ultricies, neque in sodales dignissim,
-        nibh nibh dictum erat, ut feugiat eros sapien ut erat. Vivamus commodo leo eget velit
-        fermentum, quis consequat odio suscipit. Morbi ex sapien, poMorbi ex sapien, poMorbi ex
-        sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi
-        ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien,
-        poMorbi ex sapien, poMorbi ex sapien
-      </div>
-      <div class="row bg-light">
-        <template v-for="game in GAMES" :key="game.id">
-          <GameCard :game="game" />
-        </template>
-      </div>
-      <div
-        class="col-2 bg-light d-none d-lg-block position-fixed"
-        style="right: 0; z-index: 0; height: 100vh"
-      >
-        sit amet, consectetur adipiscing elit. Cras quam felis, dignissim vitae mauris quis, porta
-        sagittis urna. Cras lectus eros, ullamcorper at faucibus ac, tincidunt vel turpis. Proin
-        tempor diam ut ligula molestie convallis. Fusce luctus dolor a nulla maximus sodales. Etiam
-        fringilla dui in posuere pellentesque. Fusce fringilla placerat euismod. Nulla auctor eros
-        vel ligula gravida, eget molestie ipsum ultricies. Nullam molestie sollicitudin faucibus.
-        Proin id sollicitudin dui, et porttitor risus. Donec ultricies, neque in sodales dignissim,
-        nibh nibh dictum erat, ut feugiat eros sapien ut erat. Vivamus commodo leo eget velit
-        fermentum, quis consequat odio suscipit. Morbi ex saandit tortor, eu dndit tortor, eu dndit
-        tortor, eu dndit tortor, eu dndit tortor, eu dndit tortor, eu dndit tortor, eu dapibus
-        velit. Nullam aliquet pulvinar magna, vitae malesuada justo scelerisque et. Integer finibus
-        sapien et justo viverra fermentum. Fusce
-      </div>
+        <div class="col-2 bg-light" style="height: auto; text-align: center;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        </div>
+        <div class="col bg-light">
+          <div class="row bg-light" style="justify-content: center;">
+            <template v-for="game in GAMES" :key="game.id">
+              <div class="col-md-4">
+              <div id="card" class="m-3">
+                <GameCard :game="game" />
+              </div>
+            </div> 
+            </template>
+          </div>
+        </div>
+        <div class="col-2 bg-light" style="right: 0; z-index: 0; height: auto; text-align: center;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
+        </div>
     </div>
   </div>
   <footer class="bg-light fixed-bottom" id="footer" style="display: none">
@@ -111,3 +104,9 @@ getGames()
     </div>
   </footer>
 </template>
+
+<style scoped>
+#card{
+  display: grid;
+}
+</style>
