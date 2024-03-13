@@ -1,5 +1,5 @@
 <script setup>
-import { GameCard } from '../components/GameCard.vue';
+import { GameCard } from '@/components/GameCard.vue';
 
 window.addEventListener('scroll', function() {
   var footer = document.getElementById('footer');
@@ -53,7 +53,9 @@ window.addEventListener('scroll', function() {
           <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
         </div>
         <div class="col bg-light">
-            <GameCard/>
+          <template v-for="game in GAMES" :key="game.id">
+            <GameCard :game="game" />
+          </template>
         </div>
         <div class="col-2 bg-light" style="right: 0; z-index: 0; height: auto; text-align: center;">
           <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
