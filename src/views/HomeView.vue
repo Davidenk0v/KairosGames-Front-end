@@ -65,9 +65,15 @@
           <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
         </div>
         <div class="col bg-light">
-          <template v-for="game in GAMES" :key="game.id">
-            <GameCard :game="game" />
-          </template>
+          <div class="row bg-light" style="justify-content: center;">
+            <template v-for="game in GAMES" :key="game.id">
+              <div class="col-md-4">
+              <div id="card" class="m-3">
+                <GameCard :game="game" />
+              </div>
+            </div> 
+            </template>
+          </div>
         </div>
         <div class="col-2 bg-light" style="right: 0; z-index: 0; height: auto; text-align: center;">
           <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
@@ -90,4 +96,7 @@
 </template>
 
 <style scoped>
+#card{
+  display: grid;
+}
 </style>
