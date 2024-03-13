@@ -1,20 +1,19 @@
 <script setup>
 const props = defineProps(['game'])
-console.log(props.game)
-console.log('Llega aqui')
+const game = props.game
 </script>
 
 <template>
-  <div class="max-w-xs rounded overflow-hidden shadow-lg">
-    <img class="w-full" src="#" alt="Imagen" />
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2 text-gray-900">Título del producto</div>
-      <p class="text-gray-700 text-base">$99.99</p>
-    </div>
-    <div class="px-6 py-4">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-        Comprar
-      </button>
+  <div class="card" style="width: 18rem">
+    <img class="card-img-top" :src="game.urlImg" alt="{{game.name}}" width="262px" height="150px" />
+    <div class="card-body">
+      <h4 class="card-title">{{ game.name }}</h4>
+      <h5 class="font-weight-blod">{{ game.actualPrice }} €</h5>
+      <p>Historial de precios:</p>
+      <p class="text-success">Más bajo: {{ game.lowerPrice }} €</p>
+      <p class="text-danger">Más alto: {{ game.higherPrice }} €</p>
+      <a :href="game.urlPage" class="btn btn-primary">Ir a {{ game.shop }}</a>
+      <a :href="game.urlPage" class="btn btn-danger btn-btn-lg">L</a>
     </div>
   </div>
 </template>
