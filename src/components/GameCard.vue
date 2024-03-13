@@ -1,16 +1,20 @@
 <script setup>
 const props = defineProps(['game'])
+console.log(props.game)
+console.log('Llega aqui')
 </script>
 
 <template>
-  <div class="card" style="width: 18rem">
-    <img :src="props.game.urlImg" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="{{props.game.name}}">Card title</h5>
-      <p class="card-text">
-        {{ props.game.platform }}
-      </p>
-      <a :href="props.game.urlPage" class="btn btn-primary">Ir a la tienda</a>
+  <div class="max-w-xs rounded overflow-hidden shadow-lg">
+    <img class="w-full" src="#" alt="Imagen" />
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2 text-gray-900">Título del producto</div>
+      <p class="text-gray-700 text-base">$99.99</p>
+    </div>
+    <div class="px-6 py-4">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+        Comprar
+      </button>
     </div>
   </div>
 </template>

@@ -3,7 +3,7 @@ import axios from 'axios'
 import { ref } from 'vue'
 import GameCard from '@/components/GameCard.vue'
 
-const GAMES = ref([])
+const GAMES = ref([1, 2, 3, 4, 5, 6, 7])
 
 const getGames = async () => {
   axios
@@ -18,10 +18,9 @@ const getGames = async () => {
 
 getGames()
 </script>
-
 <template>
   <h1>Games</h1>
-  <template v-for="game in GAMES.value" :key="game.id">
-    <GameCard :game="game" />
-  </template>
+  <div class="grid grid-cols-4 gap-4" v-for="game in GAMES" :key="game.id">
+    <GameCard class="" :game="game" />
+  </div>
 </template>
