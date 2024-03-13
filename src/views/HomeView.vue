@@ -1,14 +1,26 @@
 <script setup>
-import { GameCard } from '@/components/GameCard.vue';
+  import GameCard from '@/components/GameCard.vue'
+  import axios from 'axios'
+  import { ref, computed } from 'vue'
 
-window.addEventListener('scroll', function() {
-  var footer = document.getElementById('footer');
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      footer.style.display = 'block';
-  } else {
-      footer.style.display = 'none';
+  const GAMES = ref([])
+
+  window.addEventListener('scroll', function() {
+    var footer = document.getElementById('footer');
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        footer.style.display = 'block';
+    } else {
+        footer.style.display = 'none';
+    }
+  });
+
+  const getGames = async () => {
+    axios.get('http://localhost:8080/api/games').then((response) => {
+      GAMES.value = response.data
+    })
   }
-});
+
+  getGames();
 
 </script>
 
