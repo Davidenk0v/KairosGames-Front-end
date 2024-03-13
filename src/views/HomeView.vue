@@ -1,27 +1,29 @@
 <script setup>
-  import GameCard from '@/components/GameCard.vue'
-  import axios from 'axios'
-  import { ref, computed } from 'vue'
+import GameCard from '@/components/GameCard.vue'
+import axios from 'axios'
+import { ref, onMounted } from 'vue'
 
-  const GAMES = ref([])
+const GAMES = ref([])
 
-  window.addEventListener('scroll', function() {
-    var footer = document.getElementById('footer');
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        footer.style.display = 'block';
-    } else {
-        footer.style.display = 'none';
-    }
-  });
-
-  const getGames = async () => {
-    axios.get('http://localhost:8080/api/games').then((response) => {
-      GAMES.value = response.data
-    })
+window.addEventListener('scroll', function () {
+  var footer = document.getElementById('footer')
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    footer.style.display = 'block'
+  } else {
+    footer.style.display = 'none'
   }
+})
 
-  getGames();
+const getGames = async () => {
+  axios.get('http://localhost:8080/api/games?page=0').then((response) => {
+    GAMES.value = response.data.content
+    console.log(GAMES.value)
+  })
+}
 
+onMounted(() => {
+  getGames()
+})
 </script>
 
 <template>
@@ -68,33 +70,90 @@
 
   <div class="container-fluid">
     <div class="row">
-        <div class="col-2 bg-light" style="height: auto; text-align: center;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-        </div>
-        <div class="col bg-light">
-          <div class="row bg-light" style="justify-content: center;">
-            <template v-for="game in GAMES" :key="game.id">
-              <div class="col-md-4">
+      <div class="col-2 bg-light" style="height: auto; text-align: center">
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+      </div>
+      <div class="col bg-light">
+        <div class="row bg-light" style="justify-content: center">
+          <template v-for="game in GAMES" :key="game.id">
+            <div class="col-md-4">
               <div id="card" class="m-3">
                 <GameCard :game="game" />
               </div>
-            </div> 
-            </template>
-          </div>
+            </div>
+          </template>
         </div>
-        <div class="col-2 bg-light" style="right: 0; z-index: 0; height: auto; text-align: center;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-          <img src="../../public/favicon.ico" alt="KairósGames Logo" style="width: 170px; height: 170px;">
-        </div>
+      </div>
+      <div class="col-2 bg-light" style="right: 0; z-index: 0; height: auto; text-align: center">
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+        <img
+          src="../../public/favicon.ico"
+          alt="KairósGames Logo"
+          style="width: 170px; height: 170px"
+        />
+      </div>
     </div>
   </div>
+
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item active">
+        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+
   <footer class="bg-light fixed-bottom" id="footer" style="display: none">
     <div class="container-fluid">
       <div class="row">
@@ -105,7 +164,7 @@
 </template>
 
 <style scoped>
-#card{
+#card {
   display: grid;
 }
 </style>
