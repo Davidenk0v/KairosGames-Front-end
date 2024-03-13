@@ -43,13 +43,13 @@ window.addEventListener('scroll', function() {
   
   <div class="container-fluid">
     <div class="row">
-        <div class="col-2 bg-light d-none d-lg-block position-fixed">
+        <div class="col-lg-2 bg-light d-none d-lg-block position-fixed">
           sit amet, consectetur adipiscing elit. Cras quam felis, dignissim vitae mauris quis, porta sagittis urna. Cras lectus eros, ullamcorper at faucibus ac, tincidunt vel turpis. Proin tempor diam ut ligula molestie convallis. Fusce luctus dolor a nulla maximus sodales. Etiam fringilla dui in posuere pellentesque. Fusce fringilla placerat euismod. Nulla auctor eros vel ligula gravida, eget molestie ipsum ultricies. Nullam molestie sollicitudin faucibus. Proin id sollicitudin dui, et porttitor risus. Donec ultricies, neque in sodales dignissim, nibh nibh dictum erat, ut feugiat eros sapien ut erat. Vivamus commodo leo eget velit fermentum, quis consequat odio suscipit.
 
           Morbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien, poMorbi ex sapien
 
         </div>
-        <div class="col bg-light" style="margin-left: 50px; margin-right: 50px;">
+        <div class="col-lg-8 bg-light" style="margin-left: 50px; margin-right: 50px;">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quam felis, dignissim vitae mauris quis, porta sagittis urna. Cras lectus eros, ullamcorper at faucibus ac, tincidunt vel turpis. Proin tempor diam ut ligula molestie convallis. Fusce luctus dolor a nulla maximus sodales. Etiam fringilla dui in posuere pellentesque. Fusce fringilla placerat euismod. Nulla auctor eros vel ligula gravida, eget molestie ipsum ultricies. Nullam molestie sollicitudin faucibus. Proin id sollicitudin dui, et porttitor risus. Donec ultricies, neque in sodales dignissim, nibh nibh dictum erat, ut feugiat eros sapien ut erat. Vivamus commodo leo eget velit fermentum, quis consequat odio suscipit.
 
@@ -109,7 +109,7 @@ window.addEventListener('scroll', function() {
           Quisque eleifend turpis ut risus viverra, at tempor nibh hendrerit. Quisque rutrum tempus mi, at pellentesque urna iaculis ac. Integer enim diam, malesuada vel ante vitae, rutrum maximus massa. Sed tineleifend turpis ut risus viverra, at tempor nibh hendrerit. Quisque rutrum tempus mi, at pellentesque urna iaculis ac. Integer enim diam, malesuada vel ante vitae, rutrum maximus massa. Sed tin
           </p>
         </div>
-        <div class="col-2 bg-light d-none d-lg-block position-fixed" style="right: 0; z-index: 0;">
+        <div class="col-lg-2 bg-light d-none d-lg-block position-fixed" style="right: 0; z-index: 0;">
           sit amet, consectetur adipiscing elit. Cras quam felis, dignissim vitae mauris quis, porta sagittis urna. Cras lectus eros, ullamcorper at faucibus ac, tincidunt vel turpis. Proin tempor diam ut ligula molestie convallis. Fusce luctus dolor a nulla maximus sodales. Etiam fringilla dui in posuere pellentesque. Fusce fringilla placerat euismod. Nulla auctor eros vel ligula gravida, eget molestie ipsum ultricies. Nullam molestie sollicitudin faucibus. Proin id sollicitudin dui, et porttitor risus. Donec ultricies, neque in sodales dignissim, nibh nibh dictum erat, ut feugiat eros sapien ut erat. Vivamus commodo leo eget velit fermentum, quis consequat odio suscipit.
 
           Morbi ex saandit tortor, eu dndit tortor, eu dndit tortor, eu dndit tortor, eu dndit tortor, eu dndit tortor, eu dndit tortor, eu dapibus velit. Nullam aliquet pulvinar magna, vitae malesuada justo scelerisque et. Integer finibus sapien et justo viverra fermentum. Fusce
