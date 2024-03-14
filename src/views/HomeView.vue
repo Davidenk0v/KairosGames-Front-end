@@ -1,32 +1,32 @@
 <script setup>
   import GameCard from '@/components/GameCard.vue'
   import PaginationGame from '@/components/PaginationGame.vue'
-  //import TrendingGame from '@/components/TrendingGame.vue';
+  import TrendingGame from '@/components/TrendingGame.vue';
   import axios from 'axios'
   import { ref, onMounted } from 'vue'
 
   const GAMES = ref([])
-  // const TRENDING = ref([])
+  const TRENDING = ref([])
 
-  // window.addEventListener('scroll', function() {
-  //   var footer = document.getElementById('footer');
-  //   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-  //       footer.style.display = 'block';
-  //   } else {
-  //       footer.style.display = 'none';
-  //   }
-  // });
 
   const getGames = async () => {
-  axios.get('http://localhost:8080/api/games?page=0').then((response) => {
-    GAMES.value = response.data.content
-    console.log(GAMES.value)
-  })
-}
+    axios.get('http://localhost:8080/api/games?page=0').then((response) => {
+      GAMES.value = response.data.content
+    })
+  }
+
+  const getTrendingGames = async () => {
+    axios.get('http://localhost:8080/api/games/trending').then((response) => {
+      TRENDING.value = response.data
+      console.log(TRENDING.value)
+    })
+  }
 
   onMounted(() => {
     getGames()
+    getTrendingGames();
   })
+  
 
 </script>
 
@@ -85,13 +85,13 @@
         <div class="col bg-light"><!-- Contenedor central superpuesto -->
           <div class="row bg-light" style="justify-content: center;">
             <h2>Games Trending</h2>
-           <!--  <template v-for="game in TRENDING" :key="game.id">
+           <template v-for="trending in TRENDING" :key="trending.id">
               <div class="col-md-4">
               <div id="card" class="m-3">
-                <TrendingGame :game="game" />
+                <TrendingGame :trending="trending" />
               </div>
             </div> 
-            </template> -->
+            </template>
             <h2>Games</h2>
             <template v-for="game in GAMES" :key="game.id">
               <div class="col-md-4">
