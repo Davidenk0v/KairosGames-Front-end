@@ -1,19 +1,20 @@
 <script setup>
 import GameCard from '@/components/GameCard.vue'
 import PaginationGame from '@/components/PaginationGame.vue'
+//import TrendingGame from '@/components/TrendingGame.vue';
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 
 const GAMES = ref([])
 
-window.addEventListener('scroll', function () {
-  var footer = document.getElementById('footer')
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    footer.style.display = 'block'
-  } else {
-    footer.style.display = 'none'
-  }
-})
+// window.addEventListener('scroll', function() {
+//   var footer = document.getElementById('footer');
+//   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//       footer.style.display = 'block';
+//   } else {
+//       footer.style.display = 'none';
+//   }
+// });
 
 const getGames = async () => {
   axios.get('http://localhost:8080/api/games?page=0').then((response) => {
@@ -21,6 +22,16 @@ const getGames = async () => {
     console.log(GAMES.value)
   })
 }
+const getGames = async () => {
+  axios.get('http://localhost:8080/api/games?page=0').then((response) => {
+    GAMES.value = response.data.content
+    console.log(GAMES.value)
+  })
+}
+
+onMounted(() => {
+  getGames()
+})
 
 onMounted(() => {
   getGames()
@@ -71,35 +82,83 @@ onMounted(() => {
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-2 bg-light" style="height: auto; text-align: center">
+      <div
+        class="col-2 bg-light position-fixed top-0 start-0"
+        style="height: auto; text-align: center; margin-top: 100px"
+      >
+        <!-- Contenedor izquierda superpuesto -->
         <img
-          src="../../public/favicon.ico"
+          src="../../public/publicidad/publi1.jpg"
           alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
+          style="width: 100%; height: 100%; margin-bottom: 5px; margin-top: 10px"
         />
         <img
-          src="../../public/favicon.ico"
+          src="../../public/publicidad/publi2.jpg"
           alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
+          style="width: 100%; height: 100%; margin-bottom: 5px"
         />
         <img
-          src="../../public/favicon.ico"
+          src="../../public/publicidad/publi10.jpg"
           alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
+          style="width: 100%; height: 100%; margin-bottom: 5px"
         />
         <img
-          src="../../public/favicon.ico"
+          src="../../public/publicidad/publi7.jpg"
           alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
-        />
-        <img
-          src="../../public/favicon.ico"
-          alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
+          style="width: 100%; height: 100%; margin-bottom: 5px"
         />
       </div>
+
+      <div class="col bg-light"></div>
+      <!-- Contenedor central -->
+
+      <div
+        class="col-2 bg-light position-fixed top-0 end-0"
+        style="height: auto; text-align: center; margin-top: 100px"
+      >
+        <!-- Contenedor derecha superpuesto -->
+        <img
+          src="../../public/publicidad/publi11.jpg"
+          alt="KairósGames Logo"
+          style="width: 100%; height: 100%; margin-bottom: 5px; margin-top: 10px"
+        />
+        <img
+          src="../../public/publicidad/publi16.jpeg"
+          alt="KairósGames Logo"
+          style="width: 100%; height: 110px; margin-bottom: 5px"
+        />
+        <img
+          src="../../public/publicidad/publi14.png"
+          alt="KairósGames Logo"
+          style="width: 100%; height: 100%; margin-bottom: 5px"
+        />
+        <img
+          src="../../public/publicidad/publi8.jpg"
+          alt="KairósGames Logo"
+          style="width: 100%; height: 130px; margin-bottom: 5px"
+        />
+        <img
+          src="../../public/publicidad/publi15.jpg"
+          alt="KairósGames Logo"
+          style="width: 100%; height: 90px; margin-bottom: 5px"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2 bg-light"></div>
+      <!-- Contenedor izquierda -->
       <div class="col bg-light">
+        <!-- Contenedor central superpuesto -->
         <div class="row bg-light" style="justify-content: center">
+          <h2>Games Trending</h2>
+          <!--  <template v-for="game in TRENDING" :key="game.id">
+              <div class="col-md-4">
+              <div id="card" class="m-3">
+                <TrendingGame :game="game" />
+              </div>
+            </div> 
+            </template> -->
+          <h2>Games</h2>
           <template v-for="game in GAMES" :key="game.id">
             <div class="col-md-4">
               <div id="card" class="m-3">
@@ -107,49 +166,33 @@ onMounted(() => {
               </div>
             </div>
           </template>
+          <PaginationGame />
         </div>
       </div>
-      <div class="col-2 bg-light" style="right: 0; z-index: 0; height: auto; text-align: center">
-        <img
-          src="../../public/favicon.ico"
-          alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
-        />
-        <img
-          src="../../public/favicon.ico"
-          alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
-        />
-        <img
-          src="../../public/favicon.ico"
-          alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
-        />
-        <img
-          src="../../public/favicon.ico"
-          alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
-        />
-        <img
-          src="../../public/favicon.ico"
-          alt="KairósGames Logo"
-          style="width: 170px; height: 170px"
-        />
-      </div>
+      <div class="col-2 bg-light"></div>
+      <!-- Contenedor derecha -->
+    </div>
+    <div class="row">
+      <footer class="bg-light position-absolute" id="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col text-center">Footer</div>
+          </div>
+        </div>
+      </footer>
     </div>
   </div>
-  <PaginationGame />
-  <footer class="bg-light fixed-bottom" id="footer" style="display: none">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col text-center">Footer</div>
-      </div>
-    </div>
-  </footer>
 </template>
 
 <style scoped>
 #card {
-  display: grid;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+#card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 </style>

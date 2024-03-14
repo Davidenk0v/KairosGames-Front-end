@@ -1,10 +1,10 @@
 <script setup>
-const props = defineProps(['game'])
-const game = props.game
+const props = defineProps(['trending'])
+const game = props.trending
 </script>
 
 <template>
-  <div class="card" style="width: 19rem; height: 30rem;">
+  <div class="card" style="width: 20rem; height: 30rem;">
     <img class="card-img-top" :src="game.urlImg" alt="{{game.name}}" width="262px" height="150px" />
     <div class="card-body">
       <h4 class="card-title">{{ game.name }}</h4>
