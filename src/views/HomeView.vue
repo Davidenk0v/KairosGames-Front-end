@@ -1,9 +1,12 @@
 <script setup>
   import GameCard from '@/components/GameCard.vue'
+  import PaginationGame from '@/components/PaginationGame.vue'
+  //import TrendingGame from '@/components/TrendingGame.vue';
   import axios from 'axios'
   import { ref, computed } from 'vue'
 
   const GAMES = ref([])
+  // const TRENDING = ref([])
 
   window.addEventListener('scroll', function() {
     var footer = document.getElementById('footer');
@@ -15,12 +18,15 @@
   });
 
   const getGames = async () => {
-    axios.get('http://localhost:8080/api/games').then((response) => {
-      GAMES.value = response.data
-    })
-  }
+  axios.get('http://localhost:8080/api/games?page=0').then((response) => {
+    GAMES.value = response.data.content
+    console.log(GAMES.value)
+  })
+}
 
-  getGames();
+  onMounted(() => {
+    getGames()
+  })
 
 </script>
 
@@ -80,6 +86,15 @@
         <div class="col-2 bg-light"></div><!-- Contenedor izquierda -->
         <div class="col bg-light"><!-- Contenedor central superpuesto -->
           <div class="row bg-light" style="justify-content: center;">
+            <h2>Games Trending</h2>
+           <!--  <template v-for="game in TRENDING" :key="game.id">
+              <div class="col-md-4">
+              <div id="card" class="m-3">
+                <TrendingGame :game="game" />
+              </div>
+            </div> 
+            </template> -->
+            <h2>Games</h2>
             <template v-for="game in GAMES" :key="game.id">
               <div class="col-md-4">
               <div id="card" class="m-3">
