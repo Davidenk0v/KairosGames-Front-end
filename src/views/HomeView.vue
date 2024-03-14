@@ -22,16 +22,6 @@ const getGames = async () => {
     console.log(GAMES.value)
   })
 }
-const getGames = async () => {
-  axios.get('http://localhost:8080/api/games?page=0').then((response) => {
-    GAMES.value = response.data.content
-    console.log(GAMES.value)
-  })
-}
-
-onMounted(() => {
-  getGames()
-})
 
 onMounted(() => {
   getGames()
