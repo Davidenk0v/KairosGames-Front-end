@@ -1,11 +1,12 @@
 <script setup>
 const props = defineProps(['trending'])
 const game = props.trending
+console.log(game)
 </script>
 
 <template>
-  <div class="card" style="width: 20rem; height: 30rem;">
-    <img class="card-img-top" :src="game.urlImg" alt="{{game.name}}" width="262px" height="150px" />
+  <div class="card" style="width: 20rem; height: 30rem">
+    <img class="card-img-top" :src="game.urlImg" :alt="game.name" width="262px" height="150px" />
     <div class="card-body">
       <h4 class="card-title">{{ game.name }}</h4>
       <h5 class="font-weight-blod">{{ game.actualPrice }} €</h5>

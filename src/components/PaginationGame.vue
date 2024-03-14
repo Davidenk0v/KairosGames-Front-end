@@ -1,18 +1,29 @@
-<script setup></script>
+<script setup>
+const props = defineProps(['current_page', 'total_pages'])
+const emit = defineEmits(['next_page', 'previus_page', 'set_current'])
+</script>
 
 <template>
   <nav aria-label="...">
     <ul class="pagination">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      <li v-if="!props.current_page == 0" class="page-item">
+        <a @click="emit('previus_page')" class="page-link" href="#" tabindex="-1"> Atrás </a>
       </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li v-if="!props.current_page == 0" class="page-item">
+        <a @click="emit('set_current', 0)" class="page-link" href="#">1</a>
+      </li>
       <li class="page-item active">
-        <a class="page-link" href="#">2 <span class="sr-only"></span></a>
+        <a id="currentPage" class="page-link" href="#">
+          {{ props.current_page + 1 }} <span class="sr-only"></span>
+        </a>
       </li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
+      <li v-if="props.current_page != props.total_pages" class="page-item">
+        <a @click="emit('set_current', props.total_pages)" class="page-link">
+          {{ props.total_pages }}
+        </a>
+      </li>
+      <li v-if="props.current_page != props.total_pages" class="page-item">
+        <a @click="emit('next_page')" class="page-link" href="#">Siguiente</a>
       </li>
     </ul>
   </nav>

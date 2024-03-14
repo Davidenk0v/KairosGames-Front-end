@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="create_account">
+    <h1>Create account</h1>
   </div>
 </template>
 
