@@ -93,10 +93,10 @@ onMounted(() => {
           <router-link class="nav-link active" to="/login">Login</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link active" to="/create-account">Create Account</router-link>
+          <router-link class="nav-link active" to="/register">Create Account</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">My Account</a>
+          <a class="nav-link" aria-disabled="true">My Account</a>
         </li>
       </ul>
     </div>

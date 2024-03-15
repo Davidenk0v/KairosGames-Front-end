@@ -1,5 +1,5 @@
 <script setup>
-import CreateForm from '@/components/CreateForm.vue'
+import CreateForm from '@/components/RegisterForm.vue'
 import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
 </script>
 
