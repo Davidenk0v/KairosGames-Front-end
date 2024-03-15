@@ -7,3 +7,4 @@ const trending = props.trending;
 <template>
     <img :src="trending.urlImg" alt="Trend Image">
 </template>
+
