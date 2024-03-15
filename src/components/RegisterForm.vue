@@ -6,12 +6,13 @@ import { RouterLink } from 'vue-router'
     <form class="row">
       <!-- USERNAME -->
       <div class="mb-4 col-md-8 mx-auto text-center">
+        <label for="basic-url" class="form-label">Introduce tu nombre de usuario:</label>
         <div class="input-group">
           <span class="input-group-text" id="username" name="username">@</span>
           <input
             type="text"
             class="form-control"
-            placeholder="Introduce el nombre de usuario"
+            placeholder="username"
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
@@ -19,11 +20,12 @@ import { RouterLink } from 'vue-router'
       </div>
       <!-- EMAIL -->
       <div class="mb-3 col-md-8 mx-auto text-center">
+        <label for="basic-url" class="form-label">Introduce tu email:</label>
         <div class="input-group">
           <input
             type="email"
             class="form-control"
-            placeholder="Introduce tu email"
+            placeholder="ejemplo@mail.es"
             aria-label="Recipient's email"
             aria-describedby="basic-addon2"
           />
@@ -40,17 +42,18 @@ import { RouterLink } from 'vue-router'
             aria-describedby="basic-addon3 basic-addon4"
           />
         </div>
+        <!--CONFIRMAR PASSWORD-->
         <label for="basic-url" class="form-label">Confirma tu contraseña:</label>
         <div class="input-group col-md-8 mx-auto text-center">
           <input
             type="password"
             class="form-control"
-            id="password"
+            id="confirmPassword"
             aria-describedby="basic-addon3 basic-addon4"
           />
         </div>
         <div class="form-text col-md-8 mx-auto text-center" id="basic-addon4">
-          Asegurate de que eliges una contraseña segura
+          <small>Asegurate de que eliges una contraseña segura</small>
         </div>
       </div>
       <!-- CUARTO GRUPO -->
