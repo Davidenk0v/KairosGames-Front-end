@@ -163,7 +163,6 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-          </template>
           <h2>Games</h2>
           <template v-for="game in GAMES" :key="game.id">
             <div class="col-md-4">
@@ -181,7 +180,6 @@ onMounted(() => {
             @set_current="setCurrentPage"
           />
         </div>
-      </div>
       <div class="col-2 bg-light"></div>
       <!-- Contenedor derecha -->
     </div>
