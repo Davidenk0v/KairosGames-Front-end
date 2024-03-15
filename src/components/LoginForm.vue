@@ -10,9 +10,6 @@ const PASSWORD = ref('')
 const MESSAGE = ref('')
 const URL_LOGIN = 'http://localhost:8080/auth/login'
 
-import { useAuthStore } from '@/stores/useAuthStore.js'
-const authStore = useAuthStore()
-
 const login = () => {
   const data = {
     username: USERNAME.value,
@@ -24,8 +21,7 @@ const login = () => {
     .then((response) => {
       if (response.status === 200) {
         MESSAGE.value = 'Login exitoso'
-        authStore.setRol(response.data.token)
-        console.log(response.data.token)
+        sessionStorage.setItem('rol', response.data.rol)
         router.push('/')
       } else {
         router.push('/login')

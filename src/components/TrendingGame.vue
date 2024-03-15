@@ -1,7 +1,6 @@
 <script setup>
 const props = defineProps(['trending'])
 const game = props.trending
-console.log(game)
 </script>
 
 <template>

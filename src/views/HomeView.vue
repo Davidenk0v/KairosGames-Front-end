@@ -53,6 +53,10 @@ const setCurrentPage = (page) => {
   getGames()
 }
 
+const checkRol = () => {
+  return sessionStorage.get('rol') == 'users' ? true : false
+}
+
 onMounted(() => {
   getTrendingGames()
   getGames()
@@ -89,7 +93,7 @@ onMounted(() => {
       </div>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link active" to="/login">Login</router-link>
+          <router-link v-if="checkRol()" class="nav-link active" to="/login">Login</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link active" to="/register">Create Account</router-link>
