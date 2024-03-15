@@ -3,7 +3,8 @@
   import PaginationGame from '@/components/PaginationGame.vue'
   import TrendingGame from '@/components/TrendingGame.vue';
   import axios from 'axios'
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted} from 'vue'
+
 
   const GAMES = ref([])
   const TRENDING = ref([])
@@ -26,6 +27,7 @@
     getGames()
     getTrendingGames();
   })
+  
   
 
 </script>
@@ -83,25 +85,33 @@
     <div class="row">
         <div class="col-2 bg-light"></div><!-- Contenedor izquierda -->
         <div class="col bg-light"><!-- Contenedor central superpuesto -->
-          <div class="row bg-light" style="justify-content: center;">
-            <h2>Games Trending</h2>
-           <template v-for="trending in TRENDING" :key="trending.id">
-              <div class="col-md-4">
-              <div id="card" class="m-3">
-                <TrendingGame :trending="trending" />
+            <div class="row" style="justify-content: center;">
+              <h2>Games Trending</h2>
+              <div id="trending">
+                <div id="trendingBody">
+                  <!-- <Swiper :modules="[EffectCube]" effect="cube">
+                    <SwiperSlide v-for="trending in TRENDING" :key="trending.id">
+                      <div class="swiper-slide">
+                          <TrendingGame :trending="trending" />
+                      </div>
+                    </SwiperSlide>
+                  </Swiper> -->
+                </div>
               </div>
             </div> 
-            </template>
-            <h2>Games</h2>
-            <template v-for="game in GAMES" :key="game.id">
-              <div class="col-md-4">
-              <div id="card" class="m-3">
-                <GameCard :game="game" />
-              </div>
-            </div> 
-            </template>
-            <PaginationGame/>
-          </div>
+            <div class="row">
+              <h2>Games</h2>
+              <template v-for="game in GAMES" :key="game.id">
+                <div class="col-md-4">
+                <div id="card" class="m-3">
+                  <GameCard :game="game" />
+                </div>
+              </div> 
+              </template>
+            </div>
+            <div class="row">
+              <PaginationGame/>
+            </div>
         </div>
         <div class="col-2 bg-light"></div><!-- Contenedor derecha -->
     </div>
@@ -129,4 +139,7 @@
   transform: scale(1.05); 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
+
+
+
 </style>
