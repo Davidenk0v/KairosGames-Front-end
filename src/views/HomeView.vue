@@ -6,6 +6,7 @@ import { RouterLink } from 'vue-router'
 import GameCard from '@/components/GameCard.vue'
 import PaginationGame from '@/components/PaginationGame.vue'
 import TrendingGame from '@/components/TrendingGame.vue'
+import FooterPage from '@/components/FooterPage.vue'
 
 const GAMES = ref([])
 const TRENDING = ref([])
@@ -60,7 +61,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">
@@ -149,29 +149,30 @@ onMounted(() => {
     <div class="row">
         <div class="col-2 bg-light"></div><!-- Contenedor izquierda -->
         <div class="col bg-light"><!-- Contenedor central superpuesto -->
-            <div class="row" style="justify-content: center;">
-              <h2>Games Trending</h2>
-              <div id="trending">
-                <div id="trendingBody">
-                  <!-- <Swiper :modules="[EffectCube]" effect="cube">
-                    <SwiperSlide v-for="trending in TRENDING" :key="trending.id">
-                      <div class="swiper-slide">
-                          <TrendingGame :trending="trending" />
-                      </div>
-                    </SwiperSlide>
-                  </Swiper> -->
+          <div class="row" style="justify-content: center;">
+            <h2>Games Trending</h2>
+            <div id="trendingBody">
+              <div class="wrapper">
+                <div class="container">
+                  <template v-for="(trending, index) in TRENDING" :key="index">
+                    <TrendingGame :trending="trending" :index="index"/>
+                  </template>
                 </div>
               </div>
             </div>
-          <h2>Games</h2>
-          <template v-for="game in GAMES" :key="game.id">
-            <div class="col-md-4">
-              <div id="card" class="m-3">
-                <GameCard :game="game" />
+          </div>
+          <div class="row">
+            <h2>Games</h2>
+            <template v-for="game in GAMES" :key="game.id">
+              <div class="col-md-4">
+                <div id="card" class="m-3">
+                  <GameCard :game="game"/>
+                </div>
               </div>
-            </div>
-          </template>
-          <PaginationGame
+            </template>
+          </div>
+          <div class="row">
+            <PaginationGame
             class="d-flex justify-content-center"
             :current_page="CURRENT_PAGE"
             :total_pages="TOTAL_PAGES"
@@ -179,18 +180,13 @@ onMounted(() => {
             @previus_page="previusPage"
             @set_current="setCurrentPage"
           />
+          </div>
         </div>
       <div class="col-2 bg-light"></div>
       <!-- Contenedor derecha -->
     </div>
     <div class="row">
-      <footer class="bg-light position-absolute" id="footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col text-center">Footer</div>
-          </div>
-        </div>
-      </footer>
+      <FooterPage/>
     </div>
   </div>
 </template>
