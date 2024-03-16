@@ -21,7 +21,8 @@ const login = () => {
     .then((response) => {
       if (response.status === 200) {
         MESSAGE.value = 'Login exitoso'
-        sessionStorage.setItem('rol', response.data.rol)
+        sessionStorage.setItem('token', response.data.token)
+        console.error(response.data)
         router.push('/')
       } else {
         router.push('/login')
@@ -40,13 +41,7 @@ const login = () => {
       <div class="col-sm-3 col-form-label"></div>
       <div class="col-sm-5">
         <label for="inputPassword">Nombre de usuario</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputPassword"
-          name="username"
-          v-model="USERNAME"
-        />
+        <input type="text" class="form-control" id="inputName" name="username" v-model="USERNAME" />
       </div>
     </div>
     <!-- PASSWORD DEL USUARIO -->

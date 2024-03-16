@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { RouterLink } from 'vue-router'
+import { jwtDecode } from 'jwt-decode'
 
 import GameCard from '@/components/GameCard.vue'
 import PaginationGame from '@/components/PaginationGame.vue'
@@ -54,7 +55,13 @@ const setCurrentPage = (page) => {
 }
 
 const checkRol = () => {
-  return sessionStorage.get('rol') == 'users' ? true : false
+  const token = sessionStorage.getItem('token')
+  try {
+    const { sub } = jwtDecode(token)
+    console.log(sub)
+  } catch (error) {
+    console.error('Error al descodificar', error)
+  }
 }
 
 onMounted(() => {
@@ -93,7 +100,7 @@ onMounted(() => {
       </div>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link v-if="checkRol()" class="nav-link active" to="/login">Login</router-link>
+          <router-link v-if="!checkRol()" class="nav-link active" to="/login">Login</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link active" to="/register">Create Account</router-link>
