@@ -1,9 +1,10 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import axios from 'axios'
 import { ref } from 'vue'
-
 import router from '@/router'
+
+import DangerAlert from '@/components/DangerAlert.vue'
 
 const USERNAME = ref('')
 const PASSWORD = ref('')
@@ -20,21 +21,25 @@ const login = () => {
     .post(URL_LOGIN, data)
     .then((response) => {
       if (response.status === 200) {
-        MESSAGE.value = 'Login exitoso'
-        sessionStorage.setItem('token', response.data.token)
-        console.error(response.data)
+        sessionStorage.setItem('token', response.data.jwt)
         router.push('/')
-      } else {
+      } else if (response.status === 403) {
         router.push('/login')
-        MESSAGE.value = 'Error al iniciar sesión'
+        MESSAGE.value = 'Usuario y/o contraseña incorrectos'
       }
     })
-    .catch((error) => {
-      console.error('Error en cositas', error)
+    .catch((e) => {
+      if (USERNAME.value === '' || PASSWORD.value === '') {
+        MESSAGE.value = 'Debe rellenar todos los campos'
+        console.error(e)
+      } else {
+        MESSAGE.value = 'Usuario y/o contraseña incorrectos'
+      }
     })
 }
 </script>
 <template>
+  <DangerAlert v-if="MESSAGE"> {{ MESSAGE }}</DangerAlert>
   <!-- NOMBRE DEL USUARIO -->
   <div class="container-fluid h-100 pb-5">
     <div class="pt-5 mb-3 mt-5 row">

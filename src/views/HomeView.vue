@@ -2,16 +2,20 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { RouterLink } from 'vue-router'
-import { jwtDecode } from 'jwt-decode'
 
 import GameCard from '@/components/GameCard.vue'
 import PaginationGame from '@/components/PaginationGame.vue'
 import TrendingGame from '@/components/TrendingGame.vue'
+import { useAuthStore } from '@/stores/useAuthStore'
 
+const store = useAuthStore()
+
+const URL_API = 'http://localhost:8080/api'
 const GAMES = ref([])
 const TRENDING = ref([])
 const CURRENT_PAGE = ref(0)
 const TOTAL_PAGES = ref(0)
+const SEARCH = ref('')
 
 window.addEventListener('scroll', function () {
   var footer = document.getElementById('footer')
@@ -22,14 +26,28 @@ window.addEventListener('scroll', function () {
   }
 })
 
+const searchGame = async () => {
+  if (SEARCH.value != '') {
+    try {
+      axios.get(`${URL_API}/games/filter/${SEARCH.value}`).then((response) => {
+        GAMES.value = response.data
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  } else {
+    getGames()
+  }
+}
+
 const getTrendingGames = async () => {
-  axios.get('http://localhost:8080/api/games/trending').then((response) => {
+  axios.get(URL_API + '/games/trending').then((response) => {
     TRENDING.value = response.data
   })
 }
 
 const getGames = async () => {
-  axios.get(`http://localhost:8080/api/games?page=${CURRENT_PAGE.value}`).then((response) => {
+  axios.get(`${URL_API}/games?page=${CURRENT_PAGE.value}`).then((response) => {
     GAMES.value = response.data.content
     TOTAL_PAGES.value = response.data.totalPages
   })
@@ -52,16 +70,6 @@ const previusPage = () => {
 const setCurrentPage = (page) => {
   CURRENT_PAGE.value = page
   getGames()
-}
-
-const checkRol = () => {
-  const token = sessionStorage.getItem('token')
-  try {
-    const { sub } = jwtDecode(token)
-    console.log(sub)
-  } catch (error) {
-    console.error('Error al descodificar', error)
-  }
 }
 
 onMounted(() => {
@@ -94,19 +102,48 @@ onMounted(() => {
       </button>
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <form class="d-flex justify-content-center align-items-center w-50">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            v-model="SEARCH"
+            @keyup="searchGame()"
+          />
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
       <ul class="navbar-nav">
+        <div v-if="!store.isAuthenticated">
+          <li class="nav-item">
+            <router-link class="nav-link active" to="/login">Login</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link active" to="/register">Create Account</router-link>
+          </li>
+        </div>
+
+        <div v-else>
+          <li class="nav-item">
+            <router-link to="/myaccount" class="nav-link active" aria-disabled="true"
+              >My Account</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link to="" v-if="store.isAdmin" class="nav-link active" aria-disabled="true"
+              >Modo admin</router-link
+            >
+          </li>
+        </div>
         <li class="nav-item">
-          <router-link v-if="!checkRol()" class="nav-link active" to="/login">Login</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link active" to="/register">Create Account</router-link>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-disabled="true">My Account</a>
+          <a
+            href="#"
+            v-if="store.isAuthenticated"
+            @click="store.logout()"
+            class="nav-link active"
+            aria-disabled="true"
+            >Cerrar sesión</a
+          >
         </li>
       </ul>
     </div>

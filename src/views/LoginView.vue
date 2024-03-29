@@ -1,5 +1,5 @@
 <script setup>
-import LoginForm from '@/components/LoginForm.vue'
+import LoginForm from '@/components/Layout/LoginForm.vue'
 import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
 </script>
 

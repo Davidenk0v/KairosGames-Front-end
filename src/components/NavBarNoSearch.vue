@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+import { useAuthStore } from '@/stores/useAuthStore'
+const store = useAuthStore()
+</script>
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
@@ -27,15 +30,29 @@
         </h2>
       </div>
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <router-link class="nav-link active" to="/login">Login</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link active" to="/register">Create Account</router-link>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">My Account</a>
-        </li>
+        <div v-if="!store.isAuthenticated">
+          <li class="nav-item">
+            <router-link class="nav-link active" to="/login">Login</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link active" to="/register">Create Account</router-link>
+          </li>
+        </div>
+        <div v-else>
+          <li v-if="!store.isAuthenticated" class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">My Account</a>
+          </li>
+          <li class="nav-item">
+            <a
+              href="#"
+              v-if="store.isAuthenticated"
+              @click="store.logout()"
+              class="nav-link active"
+              aria-disabled="true"
+              >Cerrar sesión</a
+            >
+          </li>
+        </div>
       </ul>
     </div>
   </nav>
