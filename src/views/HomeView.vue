@@ -110,7 +110,6 @@ onMounted(() => {
             v-model="SEARCH"
             @keyup="searchGame()"
           />
-          <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
       <ul class="navbar-nav">

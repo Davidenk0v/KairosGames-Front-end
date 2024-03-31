@@ -6,8 +6,14 @@ import { ref, defineAsyncComponent } from 'vue'
 const UserInfo = defineAsyncComponent(() => import('@/components/Layout/UserInfo.vue'))
 const MyGames = defineAsyncComponent(() => import('@/components/Layout/MyGames.vue'))
 const layout = ref(MyGames)
+const games = ref('nav-link active')
+const user = ref('nav-link')
 
-const handleLayout = (cmp) => (layout.value = cmp)
+const handleLayout = (cmp) => {
+  layout.value = cmp
+  games.value = cmp === MyGames ? 'nav-link active' : 'nav-link'
+  user.value = cmp === UserInfo ? 'nav-link active' : 'nav-link'
+}
 </script>
 <template>
   <headers>
@@ -15,15 +21,10 @@ const handleLayout = (cmp) => (layout.value = cmp)
   </headers>
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <button @click="handleLayout(MyGames)" class="nav-link active" aria-current="page">
-        Mis juegos
-      </button>
+      <button @click="handleLayout(MyGames)" :class="games" aria-current="page">Mis juegos</button>
     </li>
     <li class="nav-item">
-      <button @click="handleLayout(UserInfo)" class="nav-link">Mis datos</button>
-    </li>
-    <li class="nav-item">
-      <button class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</button>
+      <button @click="handleLayout(UserInfo)" :class="user" class="nav-link">Mis datos</button>
     </li>
   </ul>
 

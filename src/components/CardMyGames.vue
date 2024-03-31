@@ -16,7 +16,7 @@ const removeFromFav = (gameId) => {
         axiosStore.config
       )
       .then((response) => {
-        console.log(response.data)
+        sessionStorage.setItem('message', response.data)
         window.location.reload()
       })
   } catch (e) {

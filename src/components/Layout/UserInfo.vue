@@ -1,24 +1,26 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import axios from 'axios'
+
+import provincias from '../../../provincias'
 
 import { useAxiosStore } from '@/stores/useAxiosStore'
 import { useAuthStore } from '@/stores/useAuthStore'
-
-import provincias from '../../../provincias'
 
 const axiosStore = useAxiosStore()
 const authStore = useAuthStore()
 
 const USER_DATA = ref([])
 const PREFERENCES = ref([])
+const CHECKBOX = ref([])
+const CHECKBOX_SELECT = ref([])
 
-const USERNAME = ref(USER_DATA.value.username)
-const FIRST_NAME = ref(USER_DATA.value.firstName)
-const LAST_NAME = ref(USER_DATA.value.lastName)
-const EMAIL = ref(USER_DATA.value.email)
-const PASSWORD = ref(USER_DATA.value.password)
-const AGE = ref(USER_DATA.value.edad)
+const USERNAME = ref('')
+const FIRST_NAME = ref('')
+const LAST_NAME = ref('')
+const EMAIL = ref('')
+const PASSWORD = ref('')
+const AGE = ref('')
 
 const getAllPreferences = async () => {
   axios.get(axiosStore.URL_API + '/preferences', axiosStore.config).then((response) => {
@@ -32,10 +34,21 @@ const getUserInfo = () => {
       .get(axiosStore.URL_API + '/users/' + authStore.getUserId, axiosStore.config)
       .then((response) => {
         USER_DATA.value = response.data
+        USERNAME.value = response.data.username
+        FIRST_NAME.value = response.data.firstName
+        LAST_NAME.value = response.data.lastName
+        EMAIL.value = response.data.email
+        PASSWORD.value = response.data.password
+        AGE.value = response.data.edad
       })
   } catch (error) {
     console.error(error)
   }
+}
+
+const updateCheckBox = () => {
+  CHECKBOX_SELECT.value = CHECKBOX.value.filter((elem) => elem.selected).map((elem) => elem.name)
+  console.log(CHECKBOX_SELECT.value)
 }
 
 const isFav = (preference) => {
@@ -46,13 +59,14 @@ const isFav = (preference) => {
 
 const updateUser = async () => {
   const newData = {
-    username: USERNAME,
-    firstName: FIRST_NAME,
-    lastName: LAST_NAME,
-    password: PASSWORD,
-    edad: AGE,
-    email: EMAIL
+    username: USERNAME.value,
+    firstName: FIRST_NAME.value,
+    lastName: LAST_NAME.value,
+    password: PASSWORD.value,
+    edad: AGE.value,
+    email: EMAIL.value
   }
+  console.log(newData)
   try {
     axios
       .put(axiosStore.URL_API + '/user/' + authStore.getUserId, newData, axiosStore.config)
@@ -64,8 +78,11 @@ const updateUser = async () => {
   }
 }
 
-getUserInfo()
-getAllPreferences()
+onMounted(() => {
+  getUserInfo()
+  getAllPreferences()
+  updateCheckBox()
+})
 </script>
 
 <template>
@@ -112,6 +129,7 @@ getAllPreferences()
             :checked="isFav(preference)"
             type="checkbox"
             :id="preference.id"
+            @change="updateCheckBox()"
           />
           <label class="form-check-label ms-2" for="preference">{{ preference.name }} </label>
         </div>
