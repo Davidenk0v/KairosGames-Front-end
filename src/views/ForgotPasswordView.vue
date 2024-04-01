@@ -1,30 +1,31 @@
 <script setup>
 import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
-import { ref } from 'vue'
+import { ref, defineAsyncComponent } from 'vue'
 import axios from 'axios'
 
-import { useAxiosStore } from '@/stores/useAxiosStore'
-import DangerAlert from '@/components/DangerAlert.vue'
+const DangerAlert = defineAsyncComponent(() => import('@/components/DangerAlert.vue'))
+const SuccessAlert = defineAsyncComponent(() => import('@/components/SuccessAlert.vue'))
 
-const axiosStore = useAxiosStore()
-
+const ALERT = ref(SuccessAlert)
 const EMAIL = ref('')
 const MESSAGE = ref('')
 
 const sendMail = async () => {
-  try {
-    const response = await axios.post('http://localhost:8080/password/link/' + EMAIL.value)
-    console.log(response)
-  } catch (error) {
-    console.error('Error al enviar el email: ' + error)
+  const response = await axios.post('http://localhost:8080/password/link/' + EMAIL.value)
+  if (response.data.status === '200') {
+    ALERT.value = SuccessAlert
+    MESSAGE.value = response.data.message
+  } else {
+    ALERT.value = DangerAlert
+    MESSAGE.value = response.data.message
   }
 }
 </script>
 <template>
   <NavBarNoSearch>Recuperar contraseña</NavBarNoSearch>
   <div class="col m-5">
-    <DangerAlert v-if="MESSAGE != ''">{{ MESSAGE }}</DangerAlert>
+    <component v-if="MESSAGE != ''" :is="ALERT">{{ MESSAGE }}</component>
     <h5>Introduce el email registrado a tu cuenta</h5>
     <div class="form-floating mb-5">
       <input
