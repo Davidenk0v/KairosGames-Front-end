@@ -218,10 +218,10 @@ onMounted(() => {
       <div class="col bg-light">
         <!-- Contenedor central superpuesto -->
         <div class="row bg-light" style="justify-content: center">
-          <h2>Games Trending</h2>
+          <h2 v-if="SEARCH == ''">Games Trending</h2>
           <template v-for="game in TRENDING" :key="game.id">
             <div class="col-md-4">
-              <div id="card" class="m-3">
+              <div v-if="SEARCH == ''" id="card" class="m-3">
                 <TrendingGame :trending="game" />
               </div>
             </div>

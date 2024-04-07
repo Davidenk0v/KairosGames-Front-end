@@ -12,13 +12,15 @@ const EMAIL = ref('')
 const MESSAGE = ref('')
 
 const sendMail = async () => {
-  const response = await axios.post('http://localhost:8080/password/link/' + EMAIL.value)
-  if (response.data.status === '200') {
-    ALERT.value = SuccessAlert
-    MESSAGE.value = response.data.message
-  } else {
+  try {
+    const response = await axios.post('http://localhost:8080/password/link/' + EMAIL.value)
+    if (response.status === 200) {
+      ALERT.value = SuccessAlert
+      MESSAGE.value = 'Enlace enviado a su cuenta de correo'
+    }
+  } catch (error) {
     ALERT.value = DangerAlert
-    MESSAGE.value = response.data.message
+    MESSAGE.value = error.response.data
   }
 }
 </script>

@@ -29,7 +29,7 @@ const router = createRouter({
       component: () => import('../views/MyAccountView.vue')
     },
     {
-      path: '/newpassword',
+      path: '/newpassword/:id',
       name: 'new-password',
       component: () => import('../views/NewPasswordView.vue')
     }
