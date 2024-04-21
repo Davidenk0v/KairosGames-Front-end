@@ -8,7 +8,7 @@ import { useRouter } from 'vue-router'
 const { push } = useRouter();
 
 function routeViewGame(){
-  push("/game/name/"+trending.name);
+  push("/game/"+trending.id);
 }
 
 </script>

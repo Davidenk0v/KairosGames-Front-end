@@ -44,7 +44,7 @@
 <style scoped>
 
   #container{
-    margin: 0;
+    margin-top: 15px;
     padding: 0;
   }
 
@@ -57,7 +57,7 @@
   footer{
     position: relative;
     width: 64rem;
-    background-color:#ffa647;
+    background-color:#fb863c;
     min-height: 100px;
     padding: 20px 50px;
     display: flex;

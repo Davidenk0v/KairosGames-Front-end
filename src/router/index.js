@@ -27,7 +27,7 @@ const router = createRouter({
       component: () => import('../views/ForgotPasswordView.vue')
     },
     {
-      path: '/game/:name',
+      path: '/game/:id',
       name: 'game_view',
       component: () => import('../views/GameView.vue'),
       props: true

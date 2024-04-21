@@ -138,7 +138,7 @@ onMounted(() => {
             <template v-for="game in GAMES" :key="game.id">
               <div class="col-md-4">
                 <div id="card" class="m-3">
-                  <router-link :to="'/game/' + game.name " class="router-link-no-underline">
+                  <router-link :to="'/game/' + game.id " class="router-link-no-underline">
                     <GameCard :game="game"/>
                   </router-link>
                 </div>

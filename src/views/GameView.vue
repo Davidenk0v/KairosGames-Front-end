@@ -5,21 +5,14 @@ import axios from 'axios'
 
 const GAME = ref([])
 
-const props = defineProps(['name'])
-const name = props.name
+const props = defineProps(['id'])
+const id = props.id
 
 const getGame = async () => {
-  try {
-    const response = await axios.get('http://localhost:8080/api/games/name/' + name)
+  axios.get('http://localhost:8080/api/games/'+id).then((response) => {
     GAME.value = response.data
-    console.log(GAME.value)
-    console.log(name)
-  } catch (error) {
-    console.error('Error fetching game:', error)
-  }
+  })
 }
-
-console.log(GAME.value)
 
 onMounted(() => {
   getGame()
@@ -95,7 +88,7 @@ onMounted(() => {
           <div class="col bg-light"><!-- Contenedor central superpuesto -->
               <div class="container">
                   <div class="left">
-                  <div class="card" style="width: 20rem; height: 20rem; margin-top: 5rem;">
+                  <div class="card" id="cardRotate" style="width: 20rem; height: 20rem; margin-top: 5rem;">
                     <img :src="GAME.urlImg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h4 class="card-text" style="text-align: center;">{{GAME.name}}</h4>
@@ -108,8 +101,24 @@ onMounted(() => {
                       Featured
                     </div>
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item">An item</li>
-                      <li class="list-group-item">A second item</li>
+                      <li class="list-group-item">
+                        <div >Precio más bajo: {{ GAME.lowerPrice }} €</div>
+                        <div>
+                            <div class="price">
+                                <div style="margin-left:5px">{{GAME.shop}}</div>
+                            </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div>Precio más alto: {{ GAME.higherPrice }} €</div>
+                        <div>
+                            <div class="price">
+                                <a :href="GAME.urlPage" target="_blank" style="text-decoration: none; color:black">
+                                    <div style="margin-left:5px">{{GAME.shop}}</div>
+                                </a>
+                            </div>
+                        </div>
+                      </li>
                       <li class="list-group-item">A third item</li>
                     </ul>
                   </div>
@@ -119,9 +128,9 @@ onMounted(() => {
             <div class="col-2 bg-light"></div>
             <!-- Contenedor derecha -->
         </div>
-        <!-- <div class="row">
+        <div class="row">
             <FooterPage/>
-        </div> -->
+        </div>
     </div>
   </template>
 
@@ -144,6 +153,25 @@ onMounted(() => {
 }
 
 li{
-  height: 5.7rem;
+  height: 4rem;
 }
+
+@keyframes rotate {
+  0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+}
+
+  #cardRotate{
+    animation: rotate 0.9s linear 0.2s 1;
+  }
+
+  .price{
+    background-color: #fbab49;
+    border-radius: 10px;
+    width: 100px;
+  }
 </style>

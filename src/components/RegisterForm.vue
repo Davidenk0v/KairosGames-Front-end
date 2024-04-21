@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import QuestionsForm from '@/components/QuestionsForm.vue'
 </script>
 <template>
   <div class="container-fluid">
@@ -56,29 +57,19 @@ import { RouterLink } from 'vue-router'
           <small>Asegurate de que eliges una contraseña segura</small>
         </div>
       </div>
-      <!-- CUARTO GRUPO -->
-      <div class="mb-3 col-md-6 mx-auto text-center">
-        <div class="input-group">
-          <span class="input-group-text">$</span>
-          <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
-          <span class="input-group-text">.00</span>
-        </div>
-      </div>
-      <!-- QUINTO GRUPO -->
-      <div class="mb-3 col-md-8 mx-auto text-center">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" />
-          <span class="input-group-text">@</span>
-          <input type="text" class="form-control" placeholder="Server" aria-label="Server" />
-        </div>
-      </div>
       <!-- SEXTO GRUPO -->
       <div class="col-md-8 mx-auto text-center">
-        <div class="input-group">
-          <span class="input-group-text">With textarea</span>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
+        <div class="input-group" style=" margin-top: 20px;">
+          <div class="questionForm"><QuestionsForm/></div>
+            
         </div>
       </div>
     </form>
   </div>
 </template>
+
+<style>
+  .questionForm{
+    width: 100%;
+  }
+</style>
