@@ -69,7 +69,7 @@ const updateUser = async () => {
   console.log(newData)
   try {
     axios
-      .put(axiosStore.URL_API + '/user/' + authStore.getUserId, newData, axiosStore.config)
+      .put(axiosStore.URL_API + '/users/' + authStore.getUserId, newData, axiosStore.config)
       .then((response) => {
         console.log(response)
       })

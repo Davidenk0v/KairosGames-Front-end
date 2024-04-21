@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import { RouterLink } from 'vue-router'
 
@@ -7,6 +7,7 @@ import GameCard from '@/components/GameCard.vue'
 import PaginationGame from '@/components/PaginationGame.vue'
 import TrendingGame from '@/components/TrendingGame.vue'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { jwtDecode } from 'jwt-decode'
 
 const store = useAuthStore()
 
@@ -68,6 +69,34 @@ const setCurrentPage = (page) => {
   getGames()
 }
 
+const isAuthenticated = computed(() => {
+  const token = sessionStorage.getItem('token')
+  if (token) {
+    try {
+      //Descodificamos el token para saber si el usuario es admin o user
+      const { authorities } = jwtDecode(token)
+      if (authorities === 'ROLE_ADMIN' || authorities === 'ROLE_USER') {
+        return true
+      }
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+  return false
+})
+
+const isAdmin = computed(() => {
+  const token = sessionStorage.getItem('token')
+  if (isAuthenticated.value) {
+    const { authorities } = jwtDecode(token)
+    if (authorities === 'ROLE_ADMIN') {
+      return true
+    }
+  }
+  return false
+})
+
 onMounted(() => {
   getTrendingGames()
   getGames()
@@ -108,9 +137,8 @@ onMounted(() => {
           />
         </form>
       </div>
-      <p>{{ store.getUsername }}</p>
       <ul class="navbar-nav">
-        <div v-if="!store.isAuthenticated">
+        <div v-if="!isAuthenticated">
           <li class="nav-item">
             <router-link class="nav-link active" to="/login">Login</router-link>
           </li>
@@ -126,7 +154,7 @@ onMounted(() => {
             >
           </li>
           <li class="nav-item">
-            <router-link to="" v-if="store.isAdmin" class="nav-link active" aria-disabled="true"
+            <router-link to="/admin" v-if="isAdmin" class="nav-link active" aria-disabled="true"
               >Modo admin</router-link
             >
           </li>
@@ -134,7 +162,7 @@ onMounted(() => {
         <li class="nav-item">
           <a
             href="#"
-            v-if="store.isAuthenticated"
+            v-if="isAuthenticated"
             @click="store.logout()"
             class="nav-link active"
             aria-disabled="true"

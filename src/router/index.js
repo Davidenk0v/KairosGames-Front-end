@@ -1,3 +1,4 @@
+import adminGuard from '@/guards/adminGuard'
 import authGuard from '@/guards/authGuard'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -39,6 +40,12 @@ const router = createRouter({
       path: '/newpassword/sended',
       name: 'new-password-sended',
       component: () => import('../views/NewPasswordSendedView.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin-view',
+      component: () => import('../views/AdminView.vue'),
+      beforeEnter: adminGuard
     }
   ]
 })
