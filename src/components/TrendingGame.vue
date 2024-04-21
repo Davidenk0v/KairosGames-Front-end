@@ -1,14 +1,21 @@
 <script setup>
+
 const props = defineProps(['trending', 'index'])
 const trending = props.trending;
 const index = props.index;
 
+import { useRouter } from 'vue-router'
+const { push } = useRouter();
+
+function routeViewGame(){
+  push("/game/name/"+trending.name);
+}
 
 </script>
 
 <template>
   <input type="radio" name="slide" :id="trending.id" :checked="index === 0">
-  <label :for="trending.id" class="cardTrending" :style="{ 'background-image': 'url(' + trending.urlImg + ')', 'background-position': 'center'}">
+  <label :for="trending.id" class="cardTrending" :style="{ 'background-image': 'url(' + trending.urlImg + ')', 'background-position': 'center'}" v-on:dblclick="routeViewGame">
       <div class="rowTrending">
           <div class="icon"></div>
       </div>
@@ -18,7 +25,7 @@ const index = props.index;
 <style scope>
 #trendingBody{
   box-sizing: border-box;
-  margin-top: 30px;
+  margin: 30px;
   padding: 0;
   width: 100vh;
 }

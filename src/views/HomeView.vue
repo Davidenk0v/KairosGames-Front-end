@@ -13,14 +13,6 @@ const TRENDING = ref([])
 const CURRENT_PAGE = ref(0)
 const TOTAL_PAGES = ref(0)
 
-window.addEventListener('scroll', function () {
-  var footer = document.getElementById('footer')
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    footer.style.display = 'block'
-  } else {
-    footer.style.display = 'none'
-  }
-})
 
 const getTrendingGames = async () => {
   axios.get('http://localhost:8080/api/games/trending').then((response) => {
@@ -58,6 +50,9 @@ onMounted(() => {
   getTrendingGames()
   getGames()
 })
+
+
+
 </script>
 
 <template>
@@ -105,49 +100,26 @@ onMounted(() => {
   <div class="container-fluid">
     <div class="row">
       <div class="col-2 bg-light position-fixed top-0 start-0" style="height: auto; text-align: center; margin-top: 100px;"><!-- Contenedor izquierda superpuesto -->
-        <img src="../../public/publicidad/publi1.jpg" alt="KairósGames Logo" style="width: 100%; height: 100%; margin-bottom: 5px; margin-top: 10px;">
-        <img src="../../public/publicidad/publi2.jpg" alt="KairósGames Logo" style="width: 100%; height: 100%; margin-bottom: 5px;">
-        <img src="../../public/publicidad/publi10.jpg" alt="KairósGames Logo" style="width: 100%; height: 100%; margin-bottom: 5px;">
-        <img src="../../public/publicidad/publi7.jpg" alt="KairósGames Logo" style="width: 100%; height: 100%; margin-bottom: 5px;">
+        <img src="../../public/publicidad/publi1.jpg" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px; margin-top: 10px;">
+        <img src="../../public/publicidad/publi2.jpg" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px;">
+        <img src="../../public/publicidad/publi10.jpg" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px;">
+        <img src="../../public/publicidad/publi7.jpg" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px;">
       </div>
 
       <div class="col bg-light"></div>
       <!-- Contenedor central -->
 
-      <div
-        class="col-2 bg-light position-fixed top-0 end-0"
-        style="height: auto; text-align: center; margin-top: 100px"
-      >
+      <div class="col-2 bg-light position-fixed top-0 end-0" style="height: auto; text-align: center; margin-top: 100px;">
         <!-- Contenedor derecha superpuesto -->
-        <img
-          src="../../public/publicidad/publi11.jpg"
-          alt="KairósGames Logo"
-          style="width: 100%; height: 100%; margin-bottom: 5px; margin-top: 10px"
-        />
-        <img
-          src="../../public/publicidad/publi16.jpeg"
-          alt="KairósGames Logo"
-          style="width: 100%; height: 110px; margin-bottom: 5px"
-        />
-        <img
-          src="../../public/publicidad/publi14.png"
-          alt="KairósGames Logo"
-          style="width: 100%; height: 100%; margin-bottom: 5px"
-        />
-        <img
-          src="../../public/publicidad/publi8.jpg"
-          alt="KairósGames Logo"
-          style="width: 100%; height: 130px; margin-bottom: 5px"
-        />
-        <img
-          src="../../public/publicidad/publi15.jpg"
-          alt="KairósGames Logo"
-          style="width: 100%; height: 90px; margin-bottom: 5px"
-        />
+        <img src="../../public/publicidad/publi11.jpg" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px; margin-top: 10px"/>
+        <img src="../../public/publicidad/publi16.jpeg" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px"/>
+        <img src="../../public/publicidad/publi14.png" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px" />
+        <img src="../../public/publicidad/publi8.jpg" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px" />
+        <img src="../../public/publicidad/publi15.jpg" alt="Publicidad" style="width: 100%; height: 100%; margin-bottom: 5px"/>
       </div>
     </div>
     <div class="row">
-        <div class="col-2 bg-light"></div><!-- Contenedor izquierda -->
+        <div class="col-2 bg-light "></div><!-- Contenedor izquierda -->
         <div class="col bg-light"><!-- Contenedor central superpuesto -->
           <div class="row" style="justify-content: center;">
             <h2>Games Trending</h2>
@@ -166,7 +138,9 @@ onMounted(() => {
             <template v-for="game in GAMES" :key="game.id">
               <div class="col-md-4">
                 <div id="card" class="m-3">
-                  <GameCard :game="game"/>
+                  <router-link :to="'/game/' + game.name " class="router-link-no-underline">
+                    <GameCard :game="game"/>
+                  </router-link>
                 </div>
               </div>
             </template>
@@ -186,7 +160,9 @@ onMounted(() => {
       <!-- Contenedor derecha -->
     </div>
     <div class="row">
-      <FooterPage/>
+      <div class="d-flex justify-content-center">
+        <FooterPage/>
+      </div>
     </div>
   </div>
 </template>
@@ -203,6 +179,8 @@ onMounted(() => {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-
+.router-link-no-underline {
+  text-decoration: none;
+}
 
 </style>
