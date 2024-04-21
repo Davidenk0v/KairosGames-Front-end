@@ -18,7 +18,7 @@ const TOTAL_PAGES = ref(0)
 const SEARCH = ref('')
 
 window.addEventListener('scroll', function () {
-  var footer = document.getElementById('footer')
+  let footer = document.getElementById('footer')
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
     footer.style.display = 'block'
   } else {
@@ -28,13 +28,9 @@ window.addEventListener('scroll', function () {
 
 const searchGame = async () => {
   if (SEARCH.value != '') {
-    try {
-      axios.get(`${URL_API}/games/filter/${SEARCH.value}`).then((response) => {
-        GAMES.value = response.data
-      })
-    } catch (e) {
-      console.error(e)
-    }
+    axios.get(`${URL_API}/games/filter/${SEARCH.value}`).then((response) => {
+      GAMES.value = response.data
+    })
   } else {
     getGames()
   }
@@ -112,6 +108,7 @@ onMounted(() => {
           />
         </form>
       </div>
+      <p>{{ store.getUsername }}</p>
       <ul class="navbar-nav">
         <div v-if="!store.isAuthenticated">
           <li class="nav-item">

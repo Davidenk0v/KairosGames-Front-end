@@ -23,8 +23,7 @@ const sendNewPassword = async () => {
         'http://localhost:8080/password/set-newpassword/' + ID_USER.value,
         PASSWORD.value
       )
-      console.log(response.data)
-      router.go('/login')
+      router.push('/newpassword/sended')
     } catch (error) {
       console.log(error.respose.data)
       ALERT.value = DangerAlert

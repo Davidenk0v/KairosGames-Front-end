@@ -1,3 +1,4 @@
+import authGuard from '@/guards/authGuard'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -26,12 +27,18 @@ const router = createRouter({
     {
       path: '/myaccount',
       name: 'my_account',
-      component: () => import('../views/MyAccountView.vue')
+      component: () => import('../views/MyAccountView.vue'),
+      beforeEnter: authGuard
     },
     {
       path: '/newpassword/:id',
       name: 'new-password',
       component: () => import('../views/NewPasswordView.vue')
+    },
+    {
+      path: '/newpassword/sended',
+      name: 'new-password-sended',
+      component: () => import('../views/NewPasswordSendedView.vue')
     }
   ]
 })

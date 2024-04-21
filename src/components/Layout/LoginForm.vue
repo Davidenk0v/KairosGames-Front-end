@@ -21,9 +21,10 @@ const login = () => {
     .post(URL_LOGIN, data)
     .then((response) => {
       if (response.status === 200) {
-        sessionStorage.setItem('token', response.data.jwt)
+        sessionStorage.setItem('token', response.data)
         router.push('/')
       } else if (response.status === 403) {
+        console.log(response)
         router.push('/login')
         MESSAGE.value = 'Usuario y/o contraseña incorrectos'
       }
@@ -31,9 +32,10 @@ const login = () => {
     .catch((e) => {
       if (USERNAME.value === '' || PASSWORD.value === '') {
         MESSAGE.value = 'Debe rellenar todos los campos'
-        console.error(e)
+        console.error('Error 1:' + e)
       } else {
         MESSAGE.value = 'Usuario y/o contraseña incorrectos'
+        console.error('Error 2:' + e)
       }
     })
 }

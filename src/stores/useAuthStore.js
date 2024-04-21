@@ -5,13 +5,13 @@ import { computed } from 'vue'
 
 export const useAuthStore = defineStore('authStore', () => {
   // State of the store
-  const TOKEN = sessionStorage.getItem('token')
   const isAuthenticated = computed(() => {
+    const TOKEN = sessionStorage.getItem('token')
     if (TOKEN) {
       try {
         //Descodificamos el TOKEN para saber si el usuario es admin o user
-        const { iss } = jwtDecode(TOKEN)
-        if (iss === 'ADMIN' || iss === 'USER') {
+        const { authorities } = jwtDecode(TOKEN)
+        if (authorities === 'ROLE_ADMIN' || authorities === 'ROLE_USER') {
           return true
         }
       } catch (error) {
@@ -23,9 +23,10 @@ export const useAuthStore = defineStore('authStore', () => {
   })
 
   const isAdmin = computed(() => {
+    const TOKEN = sessionStorage.getItem('token')
     if (isAuthenticated.value) {
-      const { iss } = jwtDecode(TOKEN)
-      if (iss === 'ADMIN') {
+      const { authorities } = jwtDecode(TOKEN)
+      if (authorities === 'ROLE_ADMIN') {
         return true
       }
     }
@@ -33,6 +34,20 @@ export const useAuthStore = defineStore('authStore', () => {
   })
 
   const getUserId = computed(() => {
+    const TOKEN = sessionStorage.getItem('token')
+    if (TOKEN) {
+      try {
+        const { id } = jwtDecode(TOKEN)
+        return id
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    return null
+  })
+
+  const getUsername = computed(() => {
+    const TOKEN = sessionStorage.getItem('token')
     if (TOKEN) {
       try {
         const { sub } = jwtDecode(TOKEN)
