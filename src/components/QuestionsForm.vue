@@ -1,6 +1,6 @@
 <template>
     <h5 style="margin-bottom: 20px;text-align:center;">Formulario de Preferencias de Videojuegos</h5>
-    <form action="#" method="post" style="border: 1px solid grey; padding: 10px;">
+    <div style="border: 1px solid grey; padding: 10px;">
     <div class="mb-3">
         <label class="title">1. ¿Cuáles son tus géneros de videojuegos favoritos?</label><br>
         <div class="check-group">
@@ -140,8 +140,8 @@
         <label for="estilo_juego6">Otro</label>
     </div>
 </div>
-<button type="submit" style="background-color: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer;">Enviar</button>
-</form>
+
+</div>
 </template>
 
 <style>

@@ -4,7 +4,7 @@ import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
 </script>
 
 <template>
-  <header>
+  <header class="sticky-top">
     <NavBarNoSearch> Crear cuenta </NavBarNoSearch>
   </header>
   <body>
@@ -77,3 +77,8 @@ import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
     </div>
   </body>
 </template>
+<style>
+body{
+  margin-top: 10px;
+}
+</style>
