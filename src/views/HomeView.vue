@@ -8,6 +8,7 @@ import PaginationGame from '@/components/PaginationGame.vue'
 import TrendingGame from '@/components/TrendingGame.vue'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { jwtDecode } from 'jwt-decode'
+import FooterPage from '@/components/FooterPage.vue'
 
 const store = useAuthStore()
 
@@ -242,15 +243,19 @@ onMounted(() => {
       <!-- Contenedor izquierda -->
       <div class="col bg-light">
         <!-- Contenedor central superpuesto -->
-        <div class="row bg-light" style="justify-content: center">
-          <h2 v-if="SEARCH == ''">Games Trending</h2>
-          <template v-for="game in TRENDING" :key="game.id">
-            <div class="col-md-4">
-              <div v-if="SEARCH == ''" id="card" class="m-3">
-                <TrendingGame :trending="game" />
+        <div class="row" style="justify-content: center">
+          <h2>Games Trending</h2>
+          <div id="trendingBody">
+            <div class="wrapper">
+              <div class="container">
+                <template v-for="(trending, index) in TRENDING" :key="index">
+                  <TrendingGame :trending="trending" :index="index" />
+                </template>
               </div>
             </div>
-          </template>
+          </div>
+        </div>
+        <div class="row">
           <h2>Games</h2>
           <template v-for="game in GAMES" :key="game.id">
             <div class="col-md-4">
@@ -259,6 +264,8 @@ onMounted(() => {
               </div>
             </div>
           </template>
+        </div>
+        <div class="row">
           <PaginationGame
             class="d-flex justify-content-center"
             :current_page="CURRENT_PAGE"
@@ -273,13 +280,7 @@ onMounted(() => {
       <!-- Contenedor derecha -->
     </div>
     <div class="row">
-      <footer class="bg-light position-absolute" id="footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col text-center">Footer</div>
-          </div>
-        </div>
-      </footer>
+      <FooterPage />
     </div>
   </div>
 </template>

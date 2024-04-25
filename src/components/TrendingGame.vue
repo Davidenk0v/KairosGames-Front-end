@@ -4,16 +4,78 @@ const game = props.trending
 </script>
 
 <template>
-  <div class="card" style="width: 20rem; height: 30rem">
-    <img class="card-img-top" :src="game.urlImg" :alt="game.name" width="262px" height="150px" />
-    <div class="card-body">
-      <h4 class="card-title">{{ game.name }}</h4>
-      <h5 class="font-weight-blod">{{ game.actualPrice }} €</h5>
-      <p>Historial de precios:</p>
-      <p class="text-success">Más bajo: {{ game.lowerPrice }} €</p>
-      <p class="text-danger">Más alto: {{ game.higherPrice }} €</p>
-      <a :href="game.urlPage" class="btn btn-primary">Ir a {{ game.shop }}</a>
-      <a :href="game.urlPage" class="btn btn-danger btn-btn-lg">L</a>
+  <input type="radio" name="slide" :id="trending.id" :checked="index === 0" />
+  <label
+    :for="trending.id"
+    class="cardTrending"
+    :style="{ 'background-image': 'url(' + trending.urlImg + ')', 'background-position': 'center' }"
+  >
+    <div class="rowTrending">
+      <div class="icon"></div>
     </div>
-  </div>
+  </label>
 </template>
+
+<style scope>
+#trendingBody {
+  box-sizing: border-box;
+  margin-top: 30px;
+  padding: 0;
+  width: 100vh;
+}
+
+.wrapper {
+  width: 100vh;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  height: 170px;
+  width: 950px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: start;
+}
+
+.cardTrending {
+  width: 200px;
+  border-radius: 0.75rem;
+  background-size: cover;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 2rem;
+  margin: 0 10px;
+  display: flex;
+  align-items: flex-end;
+  transition: 0.6s cubic-bezier(0.28, -0.03, 0, 0.99);
+  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.8);
+}
+
+.cardTrending > .rowTrending {
+  color: white;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.cardTrending > .rowTrending > .icon {
+  background: #223;
+  color: white;
+  border-radius: 50%;
+  widows: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+input {
+  display: none;
+}
+
+input:checked + label {
+  width: 900px;
+}
+</style>

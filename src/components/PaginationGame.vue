@@ -28,3 +28,9 @@ const emit = defineEmits(['next_page', 'previus_page', 'set_current'])
     </ul>
   </nav>
 </template>
+
+<style scoped>
+  nav{
+    margin-top: 15px;
+  }
+</style>
