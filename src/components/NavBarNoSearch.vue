@@ -1,6 +1,25 @@
 <script setup>
 import { useAuthStore } from '@/stores/useAuthStore'
+import { jwtDecode } from 'jwt-decode'
+import { computed } from 'vue'
 const store = useAuthStore()
+
+const isAuthenticated = computed(() => {
+  const token = sessionStorage.getItem('token')
+  if (token) {
+    try {
+      //Descodificamos el token para saber si el usuario es admin o user
+      const { authorities } = jwtDecode(token)
+      if (authorities === 'ROLE_ADMIN' || authorities === 'ROLE_USER') {
+        return true
+      }
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  }
+  return false
+})
 </script>
 <template>
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -30,7 +49,7 @@ const store = useAuthStore()
         </h2>
       </div>
       <ul class="navbar-nav">
-        <div v-if="!store.isAuthenticated">
+        <div v-if="!isAuthenticated">
           <li class="nav-item">
             <router-link class="nav-link active" to="/login">Login</router-link>
           </li>
@@ -39,13 +58,13 @@ const store = useAuthStore()
           </li>
         </div>
         <div v-else>
-          <li v-if="!store.isAuthenticated" class="nav-item">
+          <li v-if="!isAuthenticated" class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">My Account</a>
           </li>
           <li class="nav-item">
             <a
               href="#"
-              v-if="store.isAuthenticated"
+              v-if="isAuthenticated"
               @click="store.logout()"
               class="nav-link active"
               aria-disabled="true"
