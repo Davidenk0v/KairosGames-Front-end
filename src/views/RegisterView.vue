@@ -1,5 +1,5 @@
 <script setup>
-import RegisterForm from '@/components/Layout/RegisterForm.vue'
+import RegisterForm from '@/components/RegisterForm.vue'
 import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
 import FooterPage from '@/components/FooterPage.vue'
 </script>
