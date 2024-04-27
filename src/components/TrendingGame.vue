@@ -1,6 +1,14 @@
 <script setup>
-const props = defineProps(['trending'])
-const game = props.trending
+const props = defineProps(['trending', 'index'])
+const trending = props.trending
+const index = props.index
+
+import { useRouter } from 'vue-router'
+const { push } = useRouter()
+
+function routeViewGame() {
+  push('/game/' + trending.name)
+}
 </script>
 
 <template>
@@ -9,6 +17,7 @@ const game = props.trending
     :for="trending.id"
     class="cardTrending"
     :style="{ 'background-image': 'url(' + trending.urlImg + ')', 'background-position': 'center' }"
+    v-on:dblclick="routeViewGame"
   >
     <div class="rowTrending">
       <div class="icon"></div>
@@ -19,7 +28,7 @@ const game = props.trending
 <style scope>
 #trendingBody {
   box-sizing: border-box;
-  margin-top: 30px;
+  margin: 30px;
   padding: 0;
   width: 100vh;
 }

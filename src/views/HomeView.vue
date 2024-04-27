@@ -183,22 +183,22 @@ onMounted(() => {
         <!-- Contenedor izquierda superpuesto -->
         <img
           src="../../public/publicidad/publi1.jpg"
-          alt="KairósGames Logo"
+          alt="Publicidad"
           style="width: 100%; height: 100%; margin-bottom: 5px; margin-top: 10px"
         />
         <img
           src="../../public/publicidad/publi2.jpg"
-          alt="KairósGames Logo"
+          alt="Publicidad"
           style="width: 100%; height: 100%; margin-bottom: 5px"
         />
         <img
           src="../../public/publicidad/publi10.jpg"
-          alt="KairósGames Logo"
+          alt="Publicidad"
           style="width: 100%; height: 100%; margin-bottom: 5px"
         />
         <img
           src="../../public/publicidad/publi7.jpg"
-          alt="KairósGames Logo"
+          alt="Publicidad"
           style="width: 100%; height: 100%; margin-bottom: 5px"
         />
       </div>
@@ -213,28 +213,28 @@ onMounted(() => {
         <!-- Contenedor derecha superpuesto -->
         <img
           src="../../public/publicidad/publi11.jpg"
-          alt="KairósGames Logo"
+          alt="Publicidad"
           style="width: 100%; height: 100%; margin-bottom: 5px; margin-top: 10px"
         />
         <img
           src="../../public/publicidad/publi16.jpeg"
-          alt="KairósGames Logo"
-          style="width: 100%; height: 110px; margin-bottom: 5px"
+          alt="Publicidad"
+          style="width: 100%; height: 100%; margin-bottom: 5px"
         />
         <img
           src="../../public/publicidad/publi14.png"
-          alt="KairósGames Logo"
+          alt="Publicidad"
           style="width: 100%; height: 100%; margin-bottom: 5px"
         />
         <img
           src="../../public/publicidad/publi8.jpg"
-          alt="KairósGames Logo"
-          style="width: 100%; height: 130px; margin-bottom: 5px"
+          alt="Publicidad"
+          style="width: 100%; height: 100%; margin-bottom: 5px"
         />
         <img
           src="../../public/publicidad/publi15.jpg"
-          alt="KairósGames Logo"
-          style="width: 100%; height: 90px; margin-bottom: 5px"
+          alt="Publicidad"
+          style="width: 100%; height: 100%; margin-bottom: 5px"
         />
       </div>
     </div>
@@ -260,7 +260,9 @@ onMounted(() => {
           <template v-for="game in GAMES" :key="game.id">
             <div class="col-md-4">
               <div id="card" class="m-3">
-                <GameCard :game="game" />
+                <router-link :to="'/game/' + game.name" class="router-link-no-underline">
+                  <GameCard :game="game" />
+                </router-link>
               </div>
             </div>
           </template>
@@ -280,7 +282,9 @@ onMounted(() => {
       <!-- Contenedor derecha -->
     </div>
     <div class="row">
-      <FooterPage />
+      <div class="d-flex justify-content-center">
+        <FooterPage />
+      </div>
     </div>
   </div>
 </template>
@@ -295,5 +299,9 @@ onMounted(() => {
 #card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.router-link-no-underline {
+  text-decoration: none;
 }
 </style>

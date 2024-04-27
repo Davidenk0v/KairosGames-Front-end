@@ -89,8 +89,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="card" style="width: 19rem; height: 30rem">
-    <img class="card-img-top" :src="game.urlImg" :alt="game.name" width="262px" height="150px" />
+  <div class="card" style="width: 19rem; height: 22rem; overflow: hidden">
+    <img
+      class="card-img-top"
+      :src="game.urlImg"
+      :alt="game.name"
+      width="100%"
+      style="max-height: calc(100% - 11rem); object-fit: cover"
+    />
     <div class="card-body">
       <h4 class="card-title">{{ game.name }}</h4>
       <h5 class="font-weight-blod">{{ game.actualPrice }} €</h5>
@@ -158,3 +164,5 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style></style>
