@@ -1,14 +1,13 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import axios from 'axios'
 
 import provincias from '../../../provincias'
 
 import { useAxiosStore } from '@/stores/useAxiosStore'
-import { useAuthStore } from '@/stores/useAuthStore'
+import { jwtDecode } from 'jwt-decode'
 
 const axiosStore = useAxiosStore()
-const authStore = useAuthStore()
 
 const USER_DATA = ref([])
 const PREFERENCES = ref([])
@@ -21,26 +20,42 @@ const LAST_NAME = ref('')
 const EMAIL = ref('')
 const PASSWORD = ref('')
 const AGE = ref('')
+const TOKEN = ref(sessionStorage.getItem('token'))
+const config = {
+  headers: {
+    Authorization: `Bearer ${TOKEN.value}`
+  }
+}
 
 const getAllPreferences = async () => {
-  axios.get(axiosStore.URL_API + '/preferences', axiosStore.config).then((response) => {
+  axios.get(axiosStore.URL_API + '/preferences', config).then((response) => {
     PREFERENCES.value = response.data
   })
 }
 
+const getUserId = computed(() => {
+  if (TOKEN.value != '' || TOKEN.value != null) {
+    try {
+      const { id } = jwtDecode(TOKEN.value)
+      return id
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  return null
+})
+
 const getUserInfo = () => {
   try {
-    axios
-      .get(axiosStore.URL_API + '/users/' + authStore.getUserId, axiosStore.config)
-      .then((response) => {
-        USER_DATA.value = response.data
-        USERNAME.value = response.data.username
-        FIRST_NAME.value = response.data.firstName
-        LAST_NAME.value = response.data.lastName
-        EMAIL.value = response.data.email
-        PASSWORD.value = response.data.password
-        AGE.value = response.data.edad
-      })
+    axios.get(axiosStore.URL_API + '/users/' + getUserId.value, config).then((response) => {
+      USER_DATA.value = response.data
+      USERNAME.value = response.data.username
+      FIRST_NAME.value = response.data.firstName
+      LAST_NAME.value = response.data.lastName
+      EMAIL.value = response.data.email
+      PASSWORD.value = response.data.password
+      AGE.value = response.data.edad
+    })
   } catch (error) {
     console.error(error)
   }
@@ -69,7 +84,7 @@ const updateUser = async () => {
   console.log(newData)
   try {
     axios
-      .put(axiosStore.URL_API + '/users/' + authStore.getUserId, newData, axiosStore.config)
+      .put(axiosStore.URL_API + '/users/' + getUserId.value, newData, config)
       .then((response) => {
         console.log(response)
       })

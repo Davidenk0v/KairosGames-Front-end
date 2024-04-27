@@ -33,7 +33,7 @@ const removeFromFav = (gameId) => {
       <h5 class="alert alert-primary">{{ props.game.shop }}: {{ props.game.actualPrice }} €</h5>
       <a :href="props.game.urlPage" class="btn btn-success">Ir a tienda</a>
       <button @click="removeFromFav(props.game.id)" class="btn btn-danger m-2">
-        Quitar de favoritosd
+        Quitar de favoritos
       </button>
       <fieldset>
         <legend>Historial de precios</legend>

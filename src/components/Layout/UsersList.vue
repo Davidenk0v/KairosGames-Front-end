@@ -10,10 +10,16 @@ const DangerAlert = defineAsyncComponent(() => import('@/components/DangerAlert.
 const SuccessAlert = defineAsyncComponent(() => import('@/components/SuccessAlert.vue'))
 const ALERT = ref(SuccessAlert)
 const MESSAGE = ref('')
+const TOKEN = ref(sessionStorage.getItem('token'))
+const config = {
+  headers: {
+    Authorization: `Bearer ${TOKEN.value}`
+  }
+}
 
 const getAllUsers = async () => {
   try {
-    const response = await axios.get(axiosStore.URL_API + '/users', axiosStore.config)
+    const response = await axios.get(axiosStore.URL_API + '/users', config)
     USERS.value = response.data
   } catch (e) {
     ALERT.value = DangerAlert
@@ -23,7 +29,7 @@ const getAllUsers = async () => {
 
 const deleteUser = async (userId) => {
   try {
-    const response = await axios.delete(axiosStore.URL_API + '/users/' + userId, axiosStore.config)
+    const response = await axios.delete(axiosStore.URL_API + '/users/' + userId, config)
     MESSAGE.value = 'Usuario eliminado'
     console.info = response.data
     getAllUsers()
@@ -43,12 +49,10 @@ const editUser = async (user) => {
     email: user.email
   }
   try {
-    const response = await axios.put(
-      axiosStore.URL_API + '/users/' + user.id,
-      newUser,
-      axiosStore.config
-    )
-    MESSAGE.value = 'Usuario editado correctamente'
+    axios.put(axiosStore.URL_API + '/users/' + user.id, newUser, config).then((response) => {
+      console.info(response.data)
+      MESSAGE.value = 'Usuario editado correctamente'
+    })
   } catch (e) {
     ALERT.value = DangerAlert
     MESSAGE.value = 'Hubo uno error al editar el usuario'
