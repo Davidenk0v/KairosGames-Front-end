@@ -48,7 +48,6 @@ const addGameToFav = async (idGame) => {
   axios
     .get(axiosStore.URL_API + `/user/games/add/${getUserId.value}/${idGame}`, config)
     .then((response) => {
-      console.log(response.data)
       checkListFav()
     })
     .catch((error) => {
@@ -60,7 +59,6 @@ const deleteGameToFav = async (idGame) => {
   axios
     .delete(axiosStore.URL_API + `/user/games/${getUserId.value}/${idGame}`, config)
     .then((response) => {
-      console.log(response.data)
       checkListFav()
     })
     .catch((error) => {
@@ -71,7 +69,6 @@ const deleteGameToFav = async (idGame) => {
 const checkListFav = async () => {
   axios.get(axiosStore.URL_API + `/user/games/${getUserId.value}`, config).then((response) => {
     USER_GAMES.value = response.data
-    console.log(USER_GAMES.value)
   })
 }
 
