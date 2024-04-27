@@ -1,0 +1,13 @@
+version: '3.8'
+networks:
+  kairos-games:
+    driver: bridge
+services:  
+  kairos-games-frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - kairos-games
