@@ -1,17 +1,15 @@
 <script setup>
-import { RouterLink} from 'vue-router'
+import { RouterLink } from 'vue-router'
 import axios from 'axios'
 import { ref } from 'vue'
-
 import router from '@/router'
+
+import DangerAlert from '@/components/DangerAlert.vue'
 
 const USERNAME = ref('')
 const PASSWORD = ref('')
 const MESSAGE = ref('')
 const URL_LOGIN = 'http://localhost:8080/auth/login'
-
-import { useAuthStore } from '@/stores/useAuthStore.js'
-const authStore = useAuthStore()
 
 const login = () => {
   const data = {
@@ -23,34 +21,34 @@ const login = () => {
     .post(URL_LOGIN, data)
     .then((response) => {
       if (response.status === 200) {
-        MESSAGE.value = 'Login exitoso'
-        authStore.setRol(response.data.token)
-        console.log(response.data.token)
+        sessionStorage.setItem('token', response.data)
         router.push('/')
-      } else {
+      } else if (response.status === 403) {
+        console.log(response)
         router.push('/login')
-        MESSAGE.value = 'Error al iniciar sesión'
+        MESSAGE.value = 'Usuario y/o contraseña incorrectos'
       }
     })
-    .catch((error) => {
-      console.error('Error en cositas', error)
+    .catch((e) => {
+      if (USERNAME.value === '' || PASSWORD.value === '') {
+        MESSAGE.value = 'Debe rellenar todos los campos'
+        console.error('Error 1:' + e)
+      } else {
+        MESSAGE.value = 'Usuario y/o contraseña incorrectos'
+        console.error('Error 2:' + e)
+      }
     })
 }
 </script>
 <template>
+  <DangerAlert v-if="MESSAGE"> {{ MESSAGE }}</DangerAlert>
   <!-- NOMBRE DEL USUARIO -->
   <div class="container-fluid h-100 pb-5">
     <div class="pt-5 mb-3 mt-5 row">
       <div class="col-sm-3 col-form-label"></div>
       <div class="col-sm-5">
         <label for="inputPassword">Nombre de usuario</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputPassword"
-          name="username"
-          v-model="USERNAME"
-        />
+        <input type="text" class="form-control" id="inputName" name="username" v-model="USERNAME" />
       </div>
     </div>
     <!-- PASSWORD DEL USUARIO -->
