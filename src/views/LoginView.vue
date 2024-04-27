@@ -1,6 +1,7 @@
 <script setup>
 import LoginForm from '@/components/Layout/LoginForm.vue'
 import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
+import FooterPage from '@/components/FooterPage.vue'
 </script>
 
 <template>
@@ -76,4 +77,7 @@ import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
       </div>
     </div>
   </body>
+  <div class="d-flex justify-content-center fixed-bottom">
+    <FooterPage />
+  </div>
 </template>

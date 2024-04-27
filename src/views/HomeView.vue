@@ -18,19 +18,12 @@ const TRENDING = ref([])
 const CURRENT_PAGE = ref(0)
 const TOTAL_PAGES = ref(0)
 const SEARCH = ref('')
-
-window.addEventListener('scroll', function () {
-  let footer = document.getElementById('footer')
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    footer.style.display = 'block'
-  } else {
-    footer.style.display = 'none'
-  }
-})
+const TOKEN = sessionStorage.getItem('token')
 
 const searchGame = async () => {
   if (SEARCH.value != '') {
-    axios.get(`${URL_API}/games/filter/${SEARCH.value}`).then((response) => {
+    axios.get(`${URL_API}/games/search/${SEARCH.value}`).then((response) => {
+      console.log(response.data)
       GAMES.value = response.data
     })
   } else {
@@ -71,11 +64,10 @@ const setCurrentPage = (page) => {
 }
 
 const isAuthenticated = computed(() => {
-  const token = sessionStorage.getItem('token')
-  if (token) {
+  if (TOKEN) {
     try {
-      //Descodificamos el token para saber si el usuario es admin o user
-      const { authorities } = jwtDecode(token)
+      //Descodificamos el TOKEN para saber si el usuario es admin o user
+      const { authorities } = jwtDecode(TOKEN)
       if (authorities === 'ROLE_ADMIN' || authorities === 'ROLE_USER') {
         return true
       }
@@ -88,9 +80,8 @@ const isAuthenticated = computed(() => {
 })
 
 const isAdmin = computed(() => {
-  const token = sessionStorage.getItem('token')
   if (isAuthenticated.value) {
-    const { authorities } = jwtDecode(token)
+    const { authorities } = jwtDecode(TOKEN)
     if (authorities === 'ROLE_ADMIN') {
       return true
     }
@@ -282,7 +273,7 @@ onMounted(() => {
       <!-- Contenedor derecha -->
     </div>
     <div class="row">
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center sticky-bottom">
         <FooterPage />
       </div>
     </div>

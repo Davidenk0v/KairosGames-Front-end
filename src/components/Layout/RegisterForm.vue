@@ -79,4 +79,7 @@
       </div>
     </form>
   </div>
+  <div class="d-flex justify-content-center fixed-bottom">
+    <FooterPage />
+  </div>
 </template>

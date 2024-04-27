@@ -5,6 +5,7 @@ import { defineAsyncComponent, onMounted, ref } from 'vue'
 
 const axiosStore = useAxiosStore()
 const USERS = ref([])
+const URL_API = 'http://localhost:8080/api'
 
 const DangerAlert = defineAsyncComponent(() => import('@/components/DangerAlert.vue'))
 const SuccessAlert = defineAsyncComponent(() => import('@/components/SuccessAlert.vue'))
@@ -19,7 +20,7 @@ const config = {
 
 const getAllUsers = async () => {
   try {
-    const response = await axios.get(axiosStore.URL_API + '/users', config)
+    const response = await axios.get(URL_API + '/users', config)
     USERS.value = response.data
   } catch (e) {
     ALERT.value = DangerAlert
@@ -29,7 +30,7 @@ const getAllUsers = async () => {
 
 const deleteUser = async (userId) => {
   try {
-    const response = await axios.delete(axiosStore.URL_API + '/users/' + userId, config)
+    const response = await axios.delete(URL_API + '/users/' + userId, config)
     MESSAGE.value = 'Usuario eliminado'
     console.info = response.data
     getAllUsers()

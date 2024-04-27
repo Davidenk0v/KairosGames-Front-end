@@ -1,22 +1,36 @@
 <script setup>
 import axios from 'axios'
 import { useAxiosStore } from '@/stores/useAxiosStore'
-import { useAuthStore } from '@/stores/useAuthStore'
+import { jwtDecode } from 'jwt-decode'
+import { computed, ref } from 'vue'
 
 const axiosStore = useAxiosStore()
-const authStore = useAuthStore()
-
 const props = defineProps(['game'])
+
+const TOKEN = ref(sessionStorage.getItem('token'))
+const config = {
+  headers: {
+    Authorization: `Bearer ${TOKEN.value}`
+  }
+}
+
+const getUserId = computed(() => {
+  if (TOKEN.value != '' || TOKEN.value != null) {
+    try {
+      const { id } = jwtDecode(TOKEN.value)
+      return id
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  return null
+})
 
 const removeFromFav = (gameId) => {
   try {
     axios
-      .delete(
-        axiosStore.URL_API + '/user/games/' + authStore.getUserId + '/' + gameId,
-        axiosStore.config
-      )
-      .then((response) => {
-        sessionStorage.setItem('message', response.data)
+      .delete(axiosStore.URL_API + '/user/games/' + getUserId.value + '/' + gameId, config)
+      .then(() => {
         window.location.reload()
       })
   } catch (e) {

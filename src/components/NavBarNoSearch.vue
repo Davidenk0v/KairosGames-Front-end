@@ -5,11 +5,11 @@ import { computed } from 'vue'
 const store = useAuthStore()
 
 const isAuthenticated = computed(() => {
-  const token = sessionStorage.getItem('token')
-  if (token) {
+  const TOKEN = sessionStorage.getItem('token')
+  if (TOKEN) {
     try {
-      //Descodificamos el token para saber si el usuario es admin o user
-      const { authorities } = jwtDecode(token)
+      //Descodificamos el TOKEN para saber si el usuario es admin o user
+      const { authorities } = jwtDecode(TOKEN)
       if (authorities === 'ROLE_ADMIN' || authorities === 'ROLE_USER') {
         return true
       }
