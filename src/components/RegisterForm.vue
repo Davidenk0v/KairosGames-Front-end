@@ -63,6 +63,7 @@
       MESSAGE.value = 'Las contraseñas deben coincidir en ambos campos'
       console.log('jdhnd')
     }
+    
   }
 
   function sendPreferences(userId){
