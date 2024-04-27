@@ -1,6 +1,7 @@
 <script setup>
-import CreateForm from '@/components/RegisterForm.vue'
-import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
+  import RegisterForm from '@/components/RegisterForm.vue'
+  import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
+  import FooterPage from '@/components/FooterPage.vue';
 </script>
 
 <template>
@@ -38,7 +39,7 @@ import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
         </aside>
 
         <section class="col bg-light">
-          <CreateForm />
+          <RegisterForm />
         </section>
         <!-- Contenedor central -->
 
@@ -73,12 +74,15 @@ import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
             style="width: 100%; height: 90px; margin-bottom: 5px"
           />
         </aside>
+        <div>
+          <FooterPage/>
+        </div>
       </div>
     </div>
   </body>
 </template>
 <style>
-body{
-  margin-top: 10px;
-}
+  body{
+    margin-top: 10px;
+  }
 </style>

@@ -1,15 +1,3 @@
-<script setup>
-
-  // window.addEventListener('scroll', function () {
-  //   var footer = document.getElementById('footer')
-  //   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-  //     footer.style.display = 'block'
-  //   } else {
-  //     footer.style.display = 'none'
-  //   }
-  // })
-</script>
-
 <template>
     <div id="container">
       <div id="footerBody">
@@ -28,10 +16,10 @@
             <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
           </ul>
           <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Team</a></li>
+            <li><router-link to="/">Home</router-link></li>
+            <li><router-link to="/about">About</router-link></li>
+            <li><router-link to="/services">Services</router-link></li>
+            <li><router-link to="/team">Team</router-link></li>
             <li><a href="#">Contact</a></li>
           </ul>
           <p>©2024 Video Games Comparator | All Rights Reserved</p>
@@ -44,7 +32,7 @@
 <style scoped>
 
   #container{
-    margin-top: 15px;
+    margin-top: 60px;
     padding: 0;
   }
 
@@ -52,6 +40,7 @@
     display: flex;
     justify-content: center;
     min-height: 100%;
+    height: 170px;
   }
 
   footer{
@@ -71,7 +60,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0;
+    margin: 5px 0;
     flex-wrap: wrap;
   }
 
@@ -107,7 +96,7 @@
   footer p{
     color: beige;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 1.1rem;
   }
   

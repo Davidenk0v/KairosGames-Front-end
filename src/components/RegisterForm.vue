@@ -1,64 +1,72 @@
 <script setup>
 
-import QuestionsForm from '@/components/QuestionsForm.vue'
-import axios from 'axios'
-import { ref } from 'vue'
-import router from '@/router'
+  import QuestionsForm from '@/components/QuestionsForm.vue'
+  import axios from 'axios'
+  import { ref } from 'vue'
+  import router from '@/router'
 
-const USERNAME = ref('')
-const NAME = ref('')
-const LASTNAME = ref('')
-const EMAIL = ref('')
-const AGE = ref('')
-const PASSWORD = ref('')
-const CONFIRMPASSWORD = ref('')
-const QUESTIONS = ref('')
-const MESSAGE = ref('')
+  const USERNAME = ref('')
+  const PASSWORD = ref('')
+  const CONFIRMPASSWORD = ref('')
+  const NAME = ref('')
+  const LASTNAME = ref('')
+  const EMAIL = ref('')
+  const AGE = ref('')
 
-const URL_REGISTER = 'http://localhost:8080/auth/register'
+  const QUESTIONS = ref('')
+  const userId = 1
+  const MESSAGE = ref('')
 
-function confirmItsTheSamePassword(){
-  if(PASSWORD.value === CONFIRMPASSWORD.value){
-    return true
+  const URL_REGISTER = 'http://localhost:8080/auth/register'
+
+  function confirmItsTheSamePassword(){
+    return PASSWORD.value === CONFIRMPASSWORD.value
   }
-  return false
-}
 
-const login = () =>{
-  if(confirmItsTheSamePassword()){
-    const data = {
-      username: USERNAME.value,
-      firstName: NAME.value,
-      lastName: LASTNAME.value,
-      email: EMAIL.value,
-      edad: AGE.value,
-      password: PASSWORD.value
-    }
 
-    axios
-    .post(URL_REGISTER, data)
-    .then((response) => {
-      if (response.status === 200) {
-        MESSAGE.value = 'Registro exitoso'
-        
-      } else {
-        router.push('/register')
-        MESSAGE.value = 'Error al crear la cuenta'
+  const register = () =>{
+    if(confirmItsTheSamePassword()){
+      const data = {
+        username: USERNAME.value,
+        password: PASSWORD.value,
+        firstName: NAME.value,
+        lastName: LASTNAME.value,
+        email: EMAIL.value,
+        edad: AGE.value,
       }
-    })
-    .catch((error) => {
-      console.error('Error en', error)
-    })
 
-  }else{
-    router.push('/register')
-    MESSAGE.value = 'Las contraseñas deben coincidir en ambos campos'
+      axios
+      .post(URL_REGISTER, data)
+      .then((response) => {
+        if (response.status === 200) {
+          MESSAGE.value = 'Registro exitoso'
+          // const userId = response.data.userId
+          sendPreferences(userId)
+        } else {
+          router.push('/register')
+          MESSAGE.value = 'Error al crear la cuenta'
+        }
+      })
+      .catch((error) => {
+        console.error('Error en', error)
+      })
+
+    }else{
+      router.push('/register')
+      MESSAGE.value = 'Las contraseñas deben coincidir en ambos campos'
+      console.log('jdhnd')
+    }
   }
-}
+
+  function sendPreferences(){
+    QUESTIONS.value = {
+      's':'s'
+    }
+    console.log(QUESTIONS)
+  }
 </script>
 <template>
   <div class="container-fluid">
-    <form method="post" class="row">
       <div style="width: 50%; margin-left: 25%;">
         <!-- USERNAME -->
         <div class="mb-4 col-md-8 mx-auto text-left">
@@ -162,12 +170,11 @@ const login = () =>{
         <!-- SEXTO GRUPO -->
         <div class="col-md-8 mx-auto text-center">
           <div class="input-group" style=" margin-top: 20px;">
-            <div class="questionForm" ><QuestionsForm v-model="QUESTIONS"/></div>
+            <div class="questionForm" ><QuestionsForm/></div>
           </div>
         </div>
-        <button type="submit" @click="login()" class="btn btn-primary">Submit</button>
+        <button type="submit" @click="register()" class="btn btn-primary">Register</button>
       </div>
-    </form>
   </div>
 </template>
 
@@ -178,5 +185,6 @@ const login = () =>{
   button{
     margin-left: 47%;
     margin-bottom: 20px;
+    margin-top: 15px;
   }
 </style>

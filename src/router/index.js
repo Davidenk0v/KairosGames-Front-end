@@ -27,10 +27,25 @@ const router = createRouter({
       component: () => import('../views/ForgotPasswordView.vue')
     },
     {
-      path: '/game/:id',
+      path: '/game/:name',
       name: 'game_view',
       component: () => import('../views/GameView.vue'),
       props: true
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/team',
+      name: 'team',
+      component: () => import('../views/TeamView.vue')
+    },
+    {
+      path: '/services',
+      name: 'services',
+      component: () => import('../views/ServicesView.vue')
     }
   ]
 })
