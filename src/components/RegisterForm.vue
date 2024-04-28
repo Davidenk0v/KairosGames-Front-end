@@ -34,6 +34,18 @@ function confirmItsTheSamePassword() {
 
 const register = () => {
   if (confirmItsTheSamePassword()) {
+    const QUESTIONS = [
+      { genero: generPreference.value },
+      { franquicia: franquiciaFavorita.value },
+      { dispositivo: dispositivoPreferido.value },
+      { motivacion: motivacionJugar.value },
+      { narrativa: narrativaPreferida.value },
+      { experiencia: experiencia.value },
+      { juegoEsperado: juegoEsperado.value },
+      { tipoMundo: tipoMundo.value },
+      { juegoFavorito: juegoFavorito.value }
+    ]
+
     const data = {
       username: USERNAME.value,
       password: PASSWORD.value,
@@ -42,28 +54,15 @@ const register = () => {
       email: EMAIL.value,
       edad: AGE.value
     }
-    const QUESTIONS = [
-      {
-        Genero: generPreference.value,
-        Franquicia: franquiciaFavorita.value,
-        Dispositivo: dispositivoPreferido.value,
-        Motivacion: motivacionJugar.value,
-        Narrativa: narrativaPreferida.value,
-        Experiencia: experiencia.value,
-        Esperado: juegoEsperado.value,
-        Mundo: tipoMundo.value,
-        JuegoFav: juegoFavorito.value
-      }
-    ]
 
     axios
-      .post(URL_REGISTER, data, QUESTIONS)
+      .post(URL_REGISTER, data)
       .then((response) => {
         if (response.status === 200) {
           MESSAGE.value = 'Registro exitoso'
           // const userId = recoger id y pasarlo a la funcion
           sessionStorage.setItem('token', response.data.token)
-          router.push('/home')
+          router.push('/')
         } else {
           MESSAGE.value = 'Error al crear la cuenta'
         }
