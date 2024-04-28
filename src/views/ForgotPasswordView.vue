@@ -1,8 +1,8 @@
 <script setup>
 import NavBarNoSearch from '@/components/NavBarNoSearch.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
 import { ref, defineAsyncComponent } from 'vue'
 import axios from 'axios'
+import FooterPage from '@/components/FooterPage.vue'
 
 const DangerAlert = defineAsyncComponent(() => import('@/components/DangerAlert.vue'))
 const SuccessAlert = defineAsyncComponent(() => import('@/components/SuccessAlert.vue'))
@@ -44,7 +44,7 @@ const sendMail = async () => {
       <button @click="sendMail()" class="btn btn-outline-primary">Enviar enlace</button>
     </div>
   </div>
-  <FooterComponent id="footer" />
+  <FooterPage id="footer" class="fixed-bottom" />
 </template>
 
 <style>
