@@ -58,7 +58,7 @@ const isAuthenticated = computed(() => {
           </li>
         </div>
         <div v-else>
-          <li v-if="!isAuthenticated" class="nav-item">
+          <li v-if="isAuthenticated" class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">My Account</a>
           </li>
           <li class="nav-item">

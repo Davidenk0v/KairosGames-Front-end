@@ -319,7 +319,7 @@ onMounted(() => {
     </div>
 
     <div class="row">
-      <div class="d-flex justify-content-center fixed-bottom">
+      <div class="d-flex justify-content-center">
         <FooterPage />
       </div>
     </div>

@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import router from '@/router'
-import { jwtDecode } from 'jwt-decode'
+// import { jwtDecode } from 'jwt-decode'
 import DangerAlert from '@/components/DangerAlert.vue'
 
 const USERNAME = ref('')
@@ -27,29 +27,24 @@ const MESSAGE = ref('')
 
 const URL_REGISTER = 'http://localhost:8080/auth/register'
 const URL_PREFERENCES = 'http://localhost:8080/api/preferences/add/'
-const URL_REGISTER = 'http://localhost:8080/auth/register'
-const URL_PREFERENCES = 'http://localhost:8080/api/preferences/add/'
 
-function confirmItsTheSamePassword() {
-  return PASSWORD.value === CONFIRMPASSWORD.value
-}
 function confirmItsTheSamePassword() {
   return PASSWORD.value === CONFIRMPASSWORD.value
 }
 
 const register = () => {
   if (confirmItsTheSamePassword()) {
-    const QUESTIONS = [
-      { genero: generPreference.value },
-      { franquicia: franquiciaFavorita.value },
-      { dispositivo: dispositivoPreferido.value },
-      { motivacion: motivacionJugar.value },
-      { narrativa: narrativaPreferida.value },
-      { experiencia: experiencia.value },
-      { juegoEsperado: juegoEsperado.value },
-      { tipoMundo: tipoMundo.value },
-      { juegoFavorito: juegoFavorito.value }
-    ]
+    // const QUESTIONS = [
+    //   { genero: generPreference.value },
+    //   { franquicia: franquiciaFavorita.value },
+    //   { dispositivo: dispositivoPreferido.value },
+    //   { motivacion: motivacionJugar.value },
+    //   { narrativa: narrativaPreferida.value },
+    //   { experiencia: experiencia.value },
+    //   { juegoEsperado: juegoEsperado.value },
+    //   { tipoMundo: tipoMundo.value },
+    //   { juegoFavorito: juegoFavorito.value }
+    // ]
 
     const data = {
       username: USERNAME.value,
@@ -61,13 +56,12 @@ const register = () => {
     }
 
     axios
-    axios
       .post(URL_REGISTER, data)
       .then((response) => {
         if (response.status === 200) {
           MESSAGE.value = 'Registro exitoso'
-          // const userId = recoger id y pasarlo a la funcion
           sessionStorage.setItem('token', response.data.token)
+          sendPreferences(sessionStorage.getUserId)
           router.push('/')
         } else {
           MESSAGE.value = 'Error al crear la cuenta'
@@ -75,6 +69,7 @@ const register = () => {
       })
       .catch((error) => {
         MESSAGE.value = 'Usuario ya existente'
+        console.log(error)
       })
   } else {
     router.push('/register')
@@ -82,34 +77,6 @@ const register = () => {
   }
 }
 
-function sendPreferences(userId) {
-  const QUESTIONS = [
-    {
-      1: generPreference.value,
-      2: franquiciaFavorita.value,
-      3: dispositivoPreferido.value,
-      4: motivacionJugar.value,
-      5: narrativaPreferida.value,
-      6: experiencia.value,
-      7: juegoEsperado.value,
-      8: tipoMundo.value,
-      9: juegoFavorito.value
-    }
-  ]
-  axios
-    .post(URL_PREFERENCES + userId, QUESTIONS)
-    .then((response) => {
-      if (response.status === 200) {
-        MESSAGE.value = 'Registro exitoso'
-        console.log('listo calisto')
-      } else {
-        console.log('fallo algo manita')
-      }
-    })
-    .catch((error) => {
-      console.error('Error en', error)
-    })
-}
 function sendPreferences(userId) {
   const QUESTIONS = [
     {
