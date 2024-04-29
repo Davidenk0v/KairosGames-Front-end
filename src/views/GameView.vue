@@ -288,7 +288,6 @@ onMounted(() => {
                   </div>
                 </li>
                 <li class="list-group-item">
-                  
                   <div>
                     Precio actual:
                     <div
