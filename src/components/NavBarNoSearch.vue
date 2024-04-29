@@ -49,27 +49,27 @@ const isAuthenticated = computed(() => {
         </h2>
       </div>
       <ul class="navbar-nav">
-        <div v-if="!isAuthenticated">
+        <div v-if="!isAuthenticated" class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link active" to="/login">Login</router-link>
+            <router-link class="btn btn-light" to="/login">Iniciar sesión</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link active" to="/register">Create Account</router-link>
+            <router-link class="btn btn-light" to="/register">Registrarse</router-link>
           </li>
         </div>
-        <div v-else>
-          <li v-if="isAuthenticated" class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">My Account</a>
+        <div v-else class="navbar-nav">
+          <li v-if="isAuthenticated">
+            <a class="btn btn-light" aria-disabled="true">Mi cuenta</a>
           </li>
           <li class="nav-item">
-            <a
-              href="#"
+            <button
               v-if="isAuthenticated"
               @click="store.logout()"
-              class="nav-link active"
+              class="btn btn-light"
               aria-disabled="true"
-              >Cerrar sesión</a
             >
+              Cerrar sesión
+            </button>
           </li>
         </div>
       </ul>

@@ -130,36 +130,36 @@ onMounted(() => {
         </form>
       </div>
       <ul class="navbar-nav">
-        <div v-if="!isAuthenticated">
+        <div v-if="!isAuthenticated" class="navbar-nav">
           <li class="nav-item">
-            <router-link class="nav-link active" to="/login">Login</router-link>
+            <router-link class="btn btn-light" to="/login">Iniciar sesión</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link active" to="/register">Create Account</router-link>
+            <router-link class="btn btn-light" to="/register">Registrarse</router-link>
           </li>
         </div>
 
-        <div v-else>
+        <div v-else class="navbar-nav">
           <li class="nav-item">
-            <router-link to="/myaccount" class="nav-link active" aria-disabled="true"
-              >My Account</router-link
+            <router-link to="/myaccount" class="btn btn-light" aria-disabled="true"
+              >Mi cuenta</router-link
             >
           </li>
           <li class="nav-item">
-            <router-link to="/admin" v-if="isAdmin" class="nav-link active" aria-disabled="true"
+            <router-link to="/admin" v-if="isAdmin" class="btn btn-light" aria-disabled="true"
               >Modo admin</router-link
             >
           </li>
         </div>
         <li class="nav-item">
-          <a
-            href="#"
+          <button
             v-if="isAuthenticated"
             @click="store.logout()"
-            class="nav-link active"
+            class="btn btn-light"
             aria-disabled="true"
-            >Cerrar sesión</a
           >
+            Cerrar sesión
+          </button>
         </li>
       </ul>
     </div>
@@ -235,7 +235,7 @@ onMounted(() => {
       <div class="col bg-light">
         <!-- Contenedor central superpuesto -->
         <div class="row" style="justify-content: center">
-          <h2>Games Trending</h2>
+          <h2 class="text-center">Juegos Trending</h2>
           <div id="trendingBody">
             <div class="wrapper">
               <div class="container">
@@ -247,7 +247,7 @@ onMounted(() => {
           </div>
         </div>
         <div class="row">
-          <h2>Games</h2>
+          <h2 class="text-center">Juegos</h2>
           <template v-for="game in GAMES" :key="game.id">
             <div class="col-md-4">
               <div id="card" class="m-3">
