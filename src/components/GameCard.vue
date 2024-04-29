@@ -4,7 +4,7 @@ const game = props.game
 </script>
 
 <template>
-  <div class="card" style="width: 19rem; height: 22rem;overflow: hidden;">
+  <div class="card" style="width: auto; height: 22rem;overflow: hidden;">
     <img class="card-img-top" :src="game.urlImg" :alt="game.name" width="100%" style="max-height: calc(100% - 11rem); object-fit: cover;"/>
     <div class="card-body">
       <hr>
