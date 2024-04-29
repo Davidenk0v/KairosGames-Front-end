@@ -27,7 +27,12 @@ const MESSAGE = ref('')
 
 const URL_REGISTER = 'http://localhost:8080/auth/register'
 const URL_PREFERENCES = 'http://localhost:8080/api/preferences/add/'
+const URL_REGISTER = 'http://localhost:8080/auth/register'
+const URL_PREFERENCES = 'http://localhost:8080/api/preferences/add/'
 
+function confirmItsTheSamePassword() {
+  return PASSWORD.value === CONFIRMPASSWORD.value
+}
 function confirmItsTheSamePassword() {
   return PASSWORD.value === CONFIRMPASSWORD.value
 }
@@ -56,6 +61,7 @@ const register = () => {
     }
 
     axios
+    axios
       .post(URL_REGISTER, data)
       .then((response) => {
         if (response.status === 200) {
@@ -76,6 +82,34 @@ const register = () => {
   }
 }
 
+function sendPreferences(userId) {
+  const QUESTIONS = [
+    {
+      1: generPreference.value,
+      2: franquiciaFavorita.value,
+      3: dispositivoPreferido.value,
+      4: motivacionJugar.value,
+      5: narrativaPreferida.value,
+      6: experiencia.value,
+      7: juegoEsperado.value,
+      8: tipoMundo.value,
+      9: juegoFavorito.value
+    }
+  ]
+  axios
+    .post(URL_PREFERENCES + userId, QUESTIONS)
+    .then((response) => {
+      if (response.status === 200) {
+        MESSAGE.value = 'Registro exitoso'
+        console.log('listo calisto')
+      } else {
+        console.log('fallo algo manita')
+      }
+    })
+    .catch((error) => {
+      console.error('Error en', error)
+    })
+}
 function sendPreferences(userId) {
   const QUESTIONS = [
     {
